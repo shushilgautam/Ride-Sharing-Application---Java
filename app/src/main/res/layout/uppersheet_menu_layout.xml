@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             >
             <TextView
-                android:foreground=""
+
                 android:padding="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -108,5 +108,5 @@
         app:cornerRadius="20dp"
         android:drawableEnd="@drawable/arrow"
         android:text="Find"
-        app:backgroundTint="@color/blue"/>
+        app:backgroundTint="@color/green"/>
 </RelativeLayout>
