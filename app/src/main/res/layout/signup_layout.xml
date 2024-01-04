@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="50sp"
+    android:padding="20sp"
+    android:layout_marginTop="40sp"
     >
     <TextView
         android:layout_width="match_parent"
@@ -35,7 +36,7 @@
         app:endIconMode="clear_text"
         app:counterEnabled="true"
         app:counterMaxLength="30"
-        android:hint="      Full Name">
+        android:hint="Full Name">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +56,7 @@
         app:endIconMode="clear_text"
         app:counterEnabled="true"
         app:counterMaxLength="30"
-        android:hint="      Email">
+        android:hint="Email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -75,7 +76,7 @@
         app:endIconMode="clear_text"
         app:counterEnabled="true"
         app:counterMaxLength="10"
-        android:hint="      Phone Number">
+        android:hint="Phone Number">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -95,7 +96,7 @@
         app:boxStrokeColor="@color/black"
         android:backgroundTint="#979797"
         app:endIconMode="password_toggle"
-        android:hint="      Password"
+        android:hint="Password"
 
         >
 
@@ -116,7 +117,7 @@
         app:boxStrokeColor="@color/black"
         android:backgroundTint="#979797"
         app:endIconMode="password_toggle"
-        android:hint="      Confirm Password"
+        android:hint="Confirm Password"
         android:layout_marginTop="20sp">
 
 
@@ -132,7 +133,7 @@
     <Button
         android:layout_width="180sp"
         android:layout_height="60sp"
-        android:id="@+id/btnlogin"
+        android:id="@+id/btnsignup"
         android:text="Sign Up"
         android:textColor="@color/white"
         android:textSize="20sp"
