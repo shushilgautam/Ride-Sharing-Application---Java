@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <include
+        android:layout_gravity="top"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text=" home page"
-        android:textSize="100sp"
-        />
+        layout="@layout/uppersheet_menu_layout"
+        android:id="@+id/included"/>
 
 </LinearLayout>

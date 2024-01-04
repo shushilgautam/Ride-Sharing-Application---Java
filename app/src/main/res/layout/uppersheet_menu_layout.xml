@@ -7,8 +7,8 @@
     android:padding="10dp"
     >
     <androidx.cardview.widget.CardView
-        android:layout_width="100dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:id="@+id/mode_changer"
@@ -17,24 +17,33 @@
         app:cardElevation="10dp"
         >
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
             <TextView
-
-                android:padding="10dp"
+                android:textColor="@color/black"
+                android:drawableTop="@drawable/bike"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="15dp"
-                android:text="bike"
+                android:text="Bike"
+                android:textAlignment="center"
                 />
-
             <TextView
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/black"
+                android:drawableTop="@drawable/car_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="car"
-                android:padding="10dp"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:text="Car"
+                android:textAlignment="center"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <LinearLayout
@@ -54,7 +63,7 @@
             android:background="@drawable/custom_textview"
             android:drawableStart="@drawable/my_location"
             android:drawablePadding="10dp"
-
+            android:id="@+id/currentLocation"
             />
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
@@ -67,6 +76,7 @@
             android:background="@drawable/custom_textview"
             android:drawableStart="@drawable/final_location"
             android:drawablePadding="10dp"
+            android:id="@+id/finalDestination"
             />
 
         <com.google.android.material.textview.MaterialTextView
@@ -79,7 +89,8 @@
             android:textSize="20sp"
             android:background="@drawable/custom_textview"
             android:drawableStart="@drawable/calender"
-            android:drawablePadding="10dp"/>
+            android:drawablePadding="10dp"
+            android:id="@+id/datePicker"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
@@ -92,6 +103,7 @@
             android:drawableStart="@drawable/time"
             android:background="@drawable/custom_textview"
             android:drawablePadding="10dp"
+            android:id="@+id/timepicker"
             />
     </LinearLayout>
     <com.google.android.material.button.MaterialButton
