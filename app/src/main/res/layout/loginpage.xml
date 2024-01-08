@@ -4,29 +4,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingStart="16dp"
         android:paddingTop="32dp"
         android:paddingEnd="16dp"
         android:paddingBottom="32dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:text="Login Page"
             android:textColor="@color/black"
-            android:textStyle="bold"
             android:textSize="40dp"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true"/>
+            android:textStyle="bold" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/enternumberbutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="65dp"
             android:drawableLeft="@drawable/baseline_contact_phone_24"
             android:padding="10dp"
             android:paddingStart="10dp"
@@ -36,17 +39,20 @@
             android:textSize="20sp"
             app:backgroundTint="#4681F4"
             app:cornerRadius="5dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="11sp"
                 android:layout_weight="1"
                 android:background="@color/black" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,58 +60,78 @@
                 android:text="OR"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="11sp"
                 android:layout_weight="1"
                 android:background="@color/black" />
+
         </LinearLayout>
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailField"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30sp"
-            android:hint="       Email"
-            android:padding="10dp"
+            android:hint="Email"
+            app:boxStrokeColor="@color/black"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/black"
-
             app:startIconDrawable="@drawable/baseline_email_24">
+
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:maxLength="25"
+                android:id="@+id/email"
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordField"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="     Password"
-            android:padding="10dp"
+            android:hint="Password"
+            app:boxStrokeColor="@color/black"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:endIconMode="password_toggle"
+            app:hintTextColor="@color/black"
             app:startIconDrawable="@drawable/baseline_key_24">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:id="@+id/password"
+                android:maxLength="20"
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/forgotPasswordTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+           android:layout_marginLeft="228dp"
+            android:textStyle="bold"
+            android:text="FORGOT PASSWORD"
+            android:textColor="@color/purple_700"
+            android:textSize="16dp" />
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/continebutton"
-            android:layout_width="191dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10sp"
+            android:layout_marginTop="30dp"
             android:drawableLeft="@drawable/arrow"
             android:padding="10dp"
             android:paddingStart="10dp"
@@ -115,48 +141,49 @@
             android:textSize="20sp"
             app:backgroundTint="#4681F4"
             app:cornerRadius="20sp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/googlebutton"
-            android:layout_width="191dp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableLeft="@drawable/arrow"
             android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/google_logo"
             android:padding="10dp"
             android:paddingStart="10dp"
             android:text="Google"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:backgroundTint="#4681F4"
-            app:cornerRadius="20sp" />
-        <TextView
-            android:id="@+id/forgotPasswordTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/googlebutton"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="15sp"
-            android:text="Forgot Your Password?"
             android:textColor="@color/black"
-            android:textSize="20dp" />
-        <TextView
-            android:id="@+id/signupTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/googlebutton"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15sp"
-            android:layout_gravity="center"
-            android:layout_toEndOf="@id/forgotPasswordTextView"
-            android:text="Signup"
-            android:textColor="@color/purple_700"
-            android:textSize="20dp" />
-        <View
+            android:textSize="20sp"
+            app:cornerRadius="20sp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:layout_marginLeft="167dp"
-            android:layout_marginRight="150dp"
-            android:background="@color/purple_700" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/donthaveaccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="0dp"
+                android:text="Don't have an account?"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/signupTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="0dp"
+                android:text="Signup"
+                android:textColor="@color/purple_700"
+                android:textSize="16dp" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
