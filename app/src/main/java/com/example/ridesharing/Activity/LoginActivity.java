@@ -10,16 +10,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ridesharing.R;
+import com.google.android.material.button.MaterialButton;
 
 
 public class LoginActivity extends AppCompatActivity {
     TextView signup;
-    Button login;
+    MaterialButton login,number;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginpage);
 
+        number=findViewById(R.id.enternumberbutton);
         signup=findViewById(R.id.signupTextView);
         login=findViewById(R.id.continebutton);
 
@@ -37,7 +39,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        number.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this,PhoneActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 }

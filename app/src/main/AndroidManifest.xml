@@ -29,6 +29,14 @@
             android:name=".Activity.SignupActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".Activity.PhoneActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.OTPActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
