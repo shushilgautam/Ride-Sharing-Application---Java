@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "759948113728",
+    "project_id": "ride-sharing-app-458a5",
+    "storage_bucket": "ride-sharing-app-458a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759948113728:android:987db7bb9971569fbd2ca5",
+        "android_client_info": {
+          "package_name": "com.example.ridesharing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNRa2hqZDdEaO-VX00pS2qIfXOWPQNYXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
