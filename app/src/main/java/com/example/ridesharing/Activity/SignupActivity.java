@@ -93,6 +93,8 @@ public class SignupActivity extends AppCompatActivity {
                 String confirmpassword = signupconfirmpassword.getText().toString();
 
                 if (username.isEmpty() || email.isEmpty() || number.isEmpty() || userpassword.isEmpty() || confirmpassword.isEmpty()) {
+                    signupfullname.setError("Required full name");
+
                     showToast("All fields are required");
                     return false;
                 }

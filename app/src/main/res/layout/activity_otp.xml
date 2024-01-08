@@ -32,6 +32,16 @@
             android:gravity="center"
             android:text="We will send you an OTP at the given number "
             android:textSize="20sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textmobileshownumber"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,17 +177,28 @@
                 android:textSize="15sp"/>
 
         </LinearLayout>
+        <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <com.google.android.material.button.MaterialButton
             android:id="@+id/textButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="CONFIRM"
             app:cornerRadius="10dp"
             android:textSize="20dp"
             android:textColor="@color/black"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="10sp"
             android:backgroundTint="@color/green"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             />
+        <ProgressBar
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:id="@+id/progressbar_otp"
+            android:visibility="gone"/>
+    </FrameLayout>
     </LinearLayout>
 </RelativeLayout>

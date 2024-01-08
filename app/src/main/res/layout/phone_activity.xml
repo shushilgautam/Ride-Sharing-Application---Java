@@ -53,16 +53,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/sendotp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send OTP"
-            app:cornerRadius="10dp"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/green"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sendotp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/green"
+                android:text="Send OTP"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:cornerRadius="10dp" />
+            <ProgressBar
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:id="@+id/progressbar_phone"
+                android:visibility="gone"/>
+        </FrameLayout>
     </LinearLayout>
 </RelativeLayout>
