@@ -19,6 +19,7 @@ import com.example.ridesharing.Fragment.ProfileFragment;
 import com.example.ridesharing.Fragment.RideDetailsFragment;
 import com.example.ridesharing.Fragment.SettingFragment;
 import com.example.ridesharing.R;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 public class HomeActivity extends AppCompatActivity {
     FrameLayout fl;
@@ -26,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     DrawerLayout dl;
     NavigationView nv;
     ActionBarDrawerToggle adt;
-    Toolbar tb;
+    MaterialToolbar tb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
