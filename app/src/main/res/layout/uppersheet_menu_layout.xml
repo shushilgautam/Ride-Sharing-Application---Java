@@ -120,5 +120,6 @@
         app:cornerRadius="20dp"
         android:drawableEnd="@drawable/arrow"
         android:text="Find"
+        android:id="@+id/find"
         app:backgroundTint="@color/green"/>
 </RelativeLayout>
