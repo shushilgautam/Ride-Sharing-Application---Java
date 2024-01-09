@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
@@ -30,8 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SignupActivity extends AppCompatActivity {
     Button signup;
     TextInputEditText signupfullname,signupemail,signupnumber,password,signupconfirmpassword;
-    //FirebaseDatabase database;
-    //DatabaseReference reference;
 
 
 
@@ -86,6 +85,8 @@ public class SignupActivity extends AppCompatActivity {
             }
 
             private boolean validateInputs() {
+
+                TextInputLayout tilFullname = findViewById(R.id.tilFullname);
                 String username = signupfullname.getText().toString();
                 String email = signupemail.getText().toString();
                 String number = signupnumber.getText().toString();
@@ -94,6 +95,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 if (username.isEmpty() || email.isEmpty() || number.isEmpty() || userpassword.isEmpty() || confirmpassword.isEmpty()) {
                     showToast("All fields are required");
+                    tilFullname.setBoxStrokeColor(getResources().getColor(R.color.your_error_stroke_color));
                     return false;
                 }
 

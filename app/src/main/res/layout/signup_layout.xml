@@ -28,11 +28,12 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tilFullname"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:hintTextColor="@color/black"
         android:backgroundTint="#979797"
         app:startIconDrawable="@drawable/baseline_person_24"
-        app:boxStrokeColor="@color/black"
+        app:boxStrokeColor="#EC473B"
         app:endIconMode="clear_text"
         app:counterEnabled="true"
         app:counterMaxLength="30"
