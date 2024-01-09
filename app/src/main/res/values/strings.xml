@@ -3,4 +3,9 @@
     <string name="CurrentLocation">Current Location</string>
     <string name="openDrawer">open</string>
     <string name="closeDrawer">close</string>
+    <string name="notification_menu_text">Notification</string>
+    <string name="content_description_search">notifications</string>
+    <string name="close">Close</string>
+    <string name="textDemo">Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph.</string>
+
 </resources>
