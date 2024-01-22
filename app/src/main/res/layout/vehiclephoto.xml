@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="30sp">
+    <TextView
+        android:id="@+id/vehiclephoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Photo of your vehicle"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="330dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="10sp"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Photo of your vehicle"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:id="@+id/photoImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_image" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add a photo"
+            android:id="@+id/addd"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            style="@style/GreenOutlineButton"
+            android:layout_marginTop="110sp"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:id="@+id/btndone"
+        android:text="Done"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_marginTop="30sp"
+        app:backgroundTint="#6F7685"
+        app:cornerRadius="30sp"
+        android:textAllCaps="false"/>
+
+</LinearLayout>

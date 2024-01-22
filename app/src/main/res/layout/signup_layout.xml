@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent">
 <LinearLayout android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -33,13 +37,11 @@
         app:hintTextColor="@color/black"
         android:backgroundTint="#979797"
         app:startIconDrawable="@drawable/baseline_person_24"
-        app:boxStrokeColor="#EC473B"
         app:endIconMode="clear_text"
         app:counterEnabled="true"
         app:counterMaxLength="30"
         android:hint="Full Name"
-        app:helperText="Required*"
-        app:helperTextTextColor="#EC2323">
+        >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,14 +58,14 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:hintTextColor="@color/black"
         android:backgroundTint="#979797"
+        android:id="@+id/tilemail"
         app:startIconDrawable="@drawable/baseline_email_24"
         app:boxStrokeColor="@color/black"
         app:endIconMode="clear_text"
         app:counterEnabled="true"
         app:counterMaxLength="30"
         android:hint="Email"
-        app:helperText="Required*"
-        app:helperTextTextColor="#EC2323">
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -79,21 +81,21 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:hintTextColor="@color/black"
         android:backgroundTint="#979797"
+        android:id="@+id/tilnumber"
         app:startIconDrawable="@drawable/baseline_phone_24"
         app:boxStrokeColor="@color/black"
         app:endIconMode="clear_text"
         app:counterEnabled="true"
         app:counterMaxLength="10"
         android:hint="Phone Number"
-        app:helperText="Required*"
-        app:helperTextTextColor="#EC2323">
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/phonenumber"
             android:maxLength="10"
-            android:inputType="numberPassword"
+            android:inputType="number"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,20 +106,21 @@
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:hintTextColor="@color/black"
+        android:id="@+id/tilpassword"
         app:startIconDrawable="@drawable/baseline_key_24"
         app:boxStrokeColor="@color/black"
         android:backgroundTint="#979797"
         app:endIconMode="password_toggle"
         android:hint="Password"
-        app:helperText="Required*"
-        app:helperTextTextColor="#EC2323"
+        app:counterEnabled="true"
 
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/password"/>
+            android:id="@+id/password"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -126,21 +129,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hintTextColor="@color/black"
+        android:id="@+id/tilconpassword"
         app:startIconDrawable="@drawable/baseline_key_24"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="@color/black"
         android:backgroundTint="#979797"
         app:endIconMode="password_toggle"
         android:hint="Confirm Password"
+        app:counterEnabled="true"
+        app:errorEnabled="true"
 
-        app:helperText="Required*"
-        app:helperTextTextColor="#EC2323">
+
+        >
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/conpassword"/>
+            android:id="@+id/conpassword"
+            android:inputType="textPassword"
+
+            />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -163,7 +172,5 @@
         />
 
 
-
-
-
 </LinearLayout>
+</ScrollView>

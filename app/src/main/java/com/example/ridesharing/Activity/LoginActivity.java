@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     public void onSuccess(AuthResult authResult) {
 //                         Toast.makeText(LoginActivity.this, authResult.getUser().getDisplayName().toString(), Toast.LENGTH_SHORT).show();
                         Intent i =new Intent(LoginActivity.this,HomeActivity.class);
+
                         startActivity(i);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -65,7 +66,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,SignupActivity.class));
+              //  startActivity(new Intent(LoginActivity.this,SignupActivity.class));
+                Intent i =new Intent(LoginActivity.this,DriverRegistrationActivity.class);
+                startActivity(i);
             }
         });
         // Set up Google Sign-In options
@@ -149,12 +152,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     }
                 });
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser user1= firebaseAuth.getCurrentUser();
-        if(firebaseAuth.getCurrentUser()!=null)
-                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        FirebaseUser user1= firebaseAuth.getCurrentUser();
+//        if(firebaseAuth.getCurrentUser()!=null)
+//                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+//    }
 }
