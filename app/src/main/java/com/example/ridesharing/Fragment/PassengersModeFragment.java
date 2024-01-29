@@ -1,13 +1,14 @@
 package com.example.ridesharing.Fragment;
 
-import static android.app.ProgressDialog.show;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,22 +16,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.example.ridesharing.Activity.PassengersListviewActivity;
 import com.example.ridesharing.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -48,23 +41,32 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-//import com.example.splashscreen.R;
-public class HomeFragment extends Fragment {
+
+public class PassengersModeFragment extends Fragment {
+
+    MaterialToolbar toolbar;
     View included;
     MaterialButton hidebtn, showbtn, find;
     MaterialTextView currentLocation, finalDestination, timePicker, datePicker;
-    TextView bikeMode,carMode;
+    TextView bikeMode, carMode;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
     String time, date, currentlocation, finaldestiantion;
+    ProgressDialog progressDialog;
 
-    ProgressDialog progressDialog ;
-    MaterialToolbar toolbar;
-    @Nullable
+    public PassengersModeFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View myview = inflater.inflate(R.layout.fragment_home, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View myview = inflater.inflate(R.layout.fragment_passengers_mode, container, false);
+        toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Passengers Mode");
         included = myview.findViewById(R.id.included);
         currentLocation = included.findViewById(R.id.currentLocation);
         finalDestination = included.findViewById(R.id.finalDestination);
@@ -76,10 +78,6 @@ public class HomeFragment extends Fragment {
         bikeMode = included.findViewById(R.id.bike);
         carMode = included.findViewById(R.id.car);
         defaultmode();
-        progressDialog= new ProgressDialog(getActivity());
-        toolbar=getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Driver Mode");
-
         bikeMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +101,7 @@ public class HomeFragment extends Fragment {
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createNewRide();
+                SearchRide();
             }
         });
         hidebtn.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +161,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 datePicker.setError(null);
-                MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker().setTheme(com.google.android.material.R.style.ThemeOverlay_Material3_MaterialCalendar).setTitleText("Select Date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).setTheme(com.google.android.material.R.style.ThemeOverlay_Material3_MaterialCalendar).build();
+                MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select Date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).setTheme(com.google.android.material.R.style.ThemeOverlay_Material3_MaterialCalendar).build();
 
                 materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
                     @Override
@@ -172,28 +170,27 @@ public class HomeFragment extends Fragment {
                         datePicker.setText(MessageFormat.format("{0}", date));
                     }
                 });
-                materialDatePicker.show(getChildFragmentManager(), "Tag");
+                materialDatePicker.show(getFragmentManager(), "Tag");
 
             }
         });
         return myview;
-
     }
 
-    private void createNewRide() {
+    private void SearchRide() {
 
         if (valid()) {
             progressDialog.setMessage("Searching...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show(); // Display Progress Dialog
             progressDialog.setCancelable(false);
-            firebaseDatabase.getReference("users/drivers").child(user.getUid()).child("existing_rides").setValue("engaged").addOnCompleteListener(new OnCompleteListener<Void>() {
+            firebaseDatabase.getReference("users/normal").child(user.getUid()).child("in_ride").setValue("True").addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isComplete()){
-                        Log.d("tag","success");
-                    }else {
-                        Log.d("tag",task.getException().getMessage());
+                    if (task.isComplete()) {
+                        Log.d("tag", "success");
+                    } else {
+                        Log.d("tag", task.getException().getMessage());
                     }
                 }
             });
@@ -201,46 +198,42 @@ public class HomeFragment extends Fragment {
             date = datePicker.getText().toString().trim();
             currentlocation = currentLocation.getText().toString().trim();
             finaldestiantion = finalDestination.getText().toString().trim();
+            String Ride_Key=currentlocation + "-to-" + finaldestiantion + "-at-time-" + time + "-and-date-" + date;
             HashMap<String, Object> map = new HashMap<>();
             map.put("current_location", currentlocation);
             map.put("final_destination", finaldestiantion);
-            map.put("time", time);
-            map.put("date", date);
-            map.put("driver_id", user.getUid());
-            map.put("passengers_list", "");
-            map.put("ride_status", "Incomplete");
-            firebaseDatabase.getReference("users/drivers").child(user.getUid()).child("history").child(currentlocation + "-to-" + finaldestiantion + "-at-time-" + time + "-and-date-" + date).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            map.put("passenger_uid",user.getUid());
+            firebaseDatabase.getReference("driverRides").addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isComplete()) {
-                        Snackbar.make(getView(), "Task is completed", Snackbar.LENGTH_LONG).show();
-                    } else {
-                        Snackbar.make(getView(), task.getException().getMessage(), Snackbar.LENGTH_LONG).show();
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.hasChild(Ride_Key)){
+                        firebaseDatabase.getReference("driverRides").child(Ride_Key).child("passengers_list").child(user.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isComplete()){
+                                   progressDialog.cancel();
+                                   new MaterialAlertDialogBuilder(getActivity()).setTitle("Request Has been Submitted ")
+                                           .setMessage("Please wait while the driver accept the offer.It can take a few minutes.")
+                                           .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                                               @Override
+                                               public void onClick(DialogInterface dialog, int which) {
+                                                   dialog.cancel();
+                                               }
+                                           });
+                                }else{
+                                    Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    progressDialog.cancel();
+                                }
+                            }
+                        });
+                    }else{
+                        Toast.makeText(getActivity(), "Currently no Riders found. Try Again Later", Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
-            firebaseDatabase.getReference("driverRides").child(currentlocation + "-to-" + finaldestiantion + "-at-time-" + time + "-and-date-" + date).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Intent i = new Intent(getActivity(), PassengersListviewActivity.class);
-                    i.putExtra("time", time);
-                    i.putExtra("date", date);
-                    i.putExtra("currentLocation", currentlocation);
-                    i.putExtra("finalDestination", finaldestiantion);
-                    progressDialog.hide();
-                    startActivity(i);
-                    getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.hide();
-                    new MaterialAlertDialogBuilder(getActivity()).setTitle("Error").setMessage(e.getMessage()).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    }).show();
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
             });
         }
@@ -252,9 +245,6 @@ public class HomeFragment extends Fragment {
         carMode.setBackgroundResource(R.color.white);
         carMode.setTextColor(Color.BLACK);
     }
-
-
-
 
     private boolean valid() {
         boolean validity = true;
@@ -276,6 +266,4 @@ public class HomeFragment extends Fragment {
         }
         return validity;
     }
-
-
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.PassengersModeFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            layout="@layout/uppersheet_menu_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/included"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_alignParentTop="true"
+            app:icon="@drawable/down_square"
+            app:cornerRadius="5dp"
+            app:iconSize="30dp"
+            app:iconTint="@color/primaryIconColor"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/white"
+            android:id="@+id/show_button"
+            />
+    </RelativeLayout>
+
+</FrameLayout>

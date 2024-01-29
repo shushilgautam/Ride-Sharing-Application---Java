@@ -10,29 +10,31 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@color/green"-->
-<!--            app:title="Passenger Mode"-->
-<!--            android:id="@+id/toolbar"-->
-<!--            app:titleTextColor="@color/black" />-->
-        <com.google.android.material.appbar.MaterialToolbar
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarLayout"
+            style="@style/MyCustomToolbar"
             android:layout_width="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_height="wrap_content"
-            style="@style/Widget.Material3.CollapsingToolbar"
-            app:collapseIcon="@drawable/arrow"
-            app:title="Passenger Mode"
-            app:menu="@menu/appbar_menu"
-            app:titleCentered="true"
-            android:elevation="20dp"
-            android:id="@+id/toolbar"
-            app:titleTextColor="@color/black" />
+            android:layout_height="56dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:minHeight="?attr/actionBarSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                app:collapseIcon="@drawable/right_arrow"
+                app:menu="@menu/appbar_menu"
+                app:title="Driver Mode"
+                app:titleCentered="true"
+                app:titleTextColor="@color/black" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout
-            android:layout_below="@id/toolbar"
+            android:layout_below="@id/appbarLayout"
             android:id="@+id/framelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -42,11 +44,12 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        style="@style/Widget.Material3.NavigationView"
+        style="@style/MyCustomNavigationView"
+        android:background="@color/primaryColor"
         app:headerLayout="@layout/header"
         android:id="@+id/navigation"
         app:menu="@menu/navmenu"
         />
 
-
+    <!--        style="@style/Widget.Material3.NavigationView"-->
 </androidx.drawerlayout.widget.DrawerLayout>

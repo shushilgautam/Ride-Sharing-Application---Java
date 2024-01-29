@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/uppersheet_dialog"
-    android:padding="10dp"
+    android:paddingRight="15dp"
+    android:paddingLeft="15dp"
     >
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -12,37 +13,44 @@
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:id="@+id/mode_changer"
-        android:layout_margin="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         app:cardCornerRadius="50dp"
         app:cardElevation="10dp"
         >
         <LinearLayout
-
+            android:weightSum="2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
             <TextView
+                android:layout_weight="1"
                 android:textColor="@color/black"
                 android:drawableTop="@drawable/bike"
-                android:paddingLeft="15dp"
+                android:paddingLeft="25dp"
                 android:paddingTop="15dp"
-                android:paddingRight="15dp"
+                android:paddingRight="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="15dp"
                 android:text="Bike"
                 android:textAlignment="center"
+                android:paddingBottom="3dp"
+                android:id="@+id/bike"
                 />
             <TextView
-                android:paddingLeft="15dp"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
                 android:paddingTop="15dp"
-                android:paddingRight="15dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="3dp"
                 android:textColor="@color/black"
                 android:drawableTop="@drawable/car_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="15dp"
                 android:text="Car"
+                android:id="@+id/car"
                 android:textAlignment="center"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -55,8 +63,9 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="20sp"
+            android:padding="7dp"
+            android:textSize="17sp"
+            android:gravity="center_vertical"
             android:hint="Current Location"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -64,12 +73,14 @@
             android:drawableStart="@drawable/my_location"
             android:drawablePadding="10dp"
             android:id="@+id/currentLocation"
+            android:text="New Summit College,Santinager"
             />
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="20sp"
+            android:padding="7dp"
+            android:textSize="17sp"
+            android:gravity="center_vertical"
             android:hint="Final Destination"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -77,6 +88,7 @@
             android:drawableStart="@drawable/final_location"
             android:drawablePadding="10dp"
             android:id="@+id/finalDestination"
+            android:text="Bus sewa office,Kalanki"
             />
 
         <com.google.android.material.textview.MaterialTextView
@@ -85,8 +97,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="Date"
-            android:padding="10dp"
-            android:textSize="20sp"
+            android:padding="7dp"
+            android:textSize="17sp"
+            android:gravity="center_vertical"
             android:background="@drawable/custom_textview"
             android:drawableStart="@drawable/calender"
             android:drawablePadding="10dp"
@@ -95,8 +108,9 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="20sp"
+            android:padding="7dp"
+            android:textSize="17sp"
+            android:gravity="center_vertical"
             android:hint="Time"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -106,20 +120,38 @@
             android:id="@+id/timepicker"
             />
     </LinearLayout>
-    <com.google.android.material.button.MaterialButton
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/topRow"
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:padding="10dp"
-        android:paddingStart="20dp"
-        app:cornerRadius="20dp"
-        android:drawableEnd="@drawable/arrow"
-        android:text="Find"
-        android:id="@+id/find"
-        app:backgroundTint="@color/green"/>
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/topRow">
+        <com.google.android.material.button.MaterialButton
+
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:paddingStart="20dp"
+            app:cornerRadius="20dp"
+            android:drawableEnd="@drawable/right_arrow"
+            android:text="Find"
+            android:id="@+id/find"
+            app:backgroundTint="@color/primaryButtonColor"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/hide_button"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="82dp"
+            android:layout_toEndOf="@+id/find"
+            app:iconTint="@color/primaryIconColor"
+            app:cornerRadius="5dp"
+            app:icon="@drawable/up_square"
+            app:iconSize="30dp" />
+    </RelativeLayout>
+
 </RelativeLayout>
