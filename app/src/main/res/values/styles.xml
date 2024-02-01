@@ -15,5 +15,26 @@
 
 
     </style>
+    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.Material3">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+<!--        <item name="colorSurfaceContainerHighest">@color/green_button</item>-->
+<!--        <item name="colorSurfaceContainerHigh">@color/green_button</item>-->
+<!--        <item name="colorSurfaceContainer">@color/blue_button</item>-->
+<!--        <item name="shapeAppearanceOverlay">@null</item>-->
+<!--        <item name="colorSecondaryContainer">@color/blue_button</item>-->
+    </style>
 
+    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/blue_button</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+<!--        <item name="cornerFamily">cut</item>-->
+        <item name="cornerSize">8dp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
 </resources>

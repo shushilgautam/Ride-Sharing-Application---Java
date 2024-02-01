@@ -2,6 +2,7 @@ package com.example.ridesharing.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,6 +38,7 @@ public class PassengersListviewActivity extends AppCompatActivity {
     FirebaseUser user=auth.getCurrentUser();
     ArrayList<DataModelForPassengers> data=new ArrayList<DataModelForPassengers>();
     SharedPreferences sharedPreferences;
+    String rideTableName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,9 +48,18 @@ public class PassengersListviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listview);
         listView=findViewById(R.id.listview);
         toolbar=findViewById(R.id.topAppBar);
+        SwipeRefreshLayout swipeRefreshLayout=findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                data.clear();
+                loadListview();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
         Intent i=getIntent();
-        String time,date,currentlocation,finaldestination,rideTableName = null;
+        String time,date,currentlocation,finaldestination;
         if(i.getStringExtra("time")!=null){
             time=i.getStringExtra("time");
             date=i.getStringExtra("date");
@@ -56,20 +67,22 @@ public class PassengersListviewActivity extends AppCompatActivity {
             finaldestination=i.getStringExtra("finalDestination");
             myEdit.putString("ride_name",currentlocation + "-to-" + finaldestination + "-at-time-" + time + "-and-date-" + date).apply();
         }
+        loadListview();
 //        if(!sharedPreferences.getString("ride_name","").isBlank()){
-            rideTableName=sharedPreferences.getString("ride_name","");
-        Log.d( "onCreate: ",rideTableName);
-        HashMap<String,Object> map=new HashMap<>();
-        map.put("from","Baneswor Multiple Campus");
-        map.put("to","Kalanki Multiple Campus");
-        map.put("uid",user.getUid());
-        map.put("fullname","Kaizer Gautam");
-        firebaseDatabase.getReference("driverRides").child(rideTableName).child("passengers_list").child("Kaizer").setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(PassengersListviewActivity.this, "Data Added", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
+
+    }
+
+    private void loadListview() {
+        rideTableName=sharedPreferences.getString("ride_name","");
+        Log.d( "onCreate: ",rideTableName);
 
         firebaseDatabase.getReference("driverRides").child(rideTableName).child("passengers_list").addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,7 +94,7 @@ public class PassengersListviewActivity extends AppCompatActivity {
                     data.add(value);
                 }
                 Log.d("Hello data",data.toString());
-                listView.setAdapter(new CustomClassForPassengersList(PassengersListviewActivity.this, data));
+                listView.setAdapter(new CustomClassForPassengersList(PassengersListviewActivity.this, data,rideTableName));
             }
 
             @Override
@@ -89,13 +102,11 @@ public class PassengersListviewActivity extends AppCompatActivity {
                 Toast.makeText(PassengersListviewActivity.this, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    @Override
+    public void onBackPressed(){
+//        super.onBackPressed();
 
     }
 

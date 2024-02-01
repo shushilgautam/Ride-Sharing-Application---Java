@@ -68,6 +68,7 @@ public class PassengersModeFragment extends Fragment {
         toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Passengers Mode");
         included = myview.findViewById(R.id.included);
+
         currentLocation = included.findViewById(R.id.currentLocation);
         finalDestination = included.findViewById(R.id.finalDestination);
         timePicker = included.findViewById(R.id.timepicker);
@@ -78,6 +79,15 @@ public class PassengersModeFragment extends Fragment {
         bikeMode = included.findViewById(R.id.bike);
         carMode = included.findViewById(R.id.car);
         defaultmode();
+        new MaterialAlertDialogBuilder(getActivity()).setTitle("Testing....")
+                .setMessage("Hello world my name is something....")
+                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).show();
+        progressDialog= new ProgressDialog(getActivity());
         bikeMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,11 +208,13 @@ public class PassengersModeFragment extends Fragment {
             date = datePicker.getText().toString().trim();
             currentlocation = currentLocation.getText().toString().trim();
             finaldestiantion = finalDestination.getText().toString().trim();
+            setToEmpty();
             String Ride_Key=currentlocation + "-to-" + finaldestiantion + "-at-time-" + time + "-and-date-" + date;
             HashMap<String, Object> map = new HashMap<>();
             map.put("current_location", currentlocation);
             map.put("final_destination", finaldestiantion);
             map.put("passenger_uid",user.getUid());
+            map.put("fullname",user.getDisplayName());
             firebaseDatabase.getReference("driverRides").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -219,7 +231,7 @@ public class PassengersModeFragment extends Fragment {
                                                public void onClick(DialogInterface dialog, int which) {
                                                    dialog.cancel();
                                                }
-                                           });
+                                           }).show();
                                 }else{
                                     Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     progressDialog.cancel();
@@ -227,7 +239,15 @@ public class PassengersModeFragment extends Fragment {
                             }
                         });
                     }else{
-                        Toast.makeText(getActivity(), "Currently no Riders found. Try Again Later", Toast.LENGTH_SHORT).show();
+                        new MaterialAlertDialogBuilder(getActivity()).setTitle("Ride Not Found")
+                                .setMessage("Sorry currently no drivers are available.Please try again after few minutes.")
+                                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                }).show();
+                        progressDialog.cancel();
                     }
                 }
 
@@ -237,6 +257,13 @@ public class PassengersModeFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void setToEmpty() {
+//        currentLocation.setText(null);
+//        finalDestination.setText(null);
+        timePicker.setText(null);
+        datePicker.setText(null);
     }
 
     private void defaultmode() {

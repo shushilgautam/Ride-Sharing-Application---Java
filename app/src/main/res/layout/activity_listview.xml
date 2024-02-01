@@ -24,11 +24,20 @@
             />
 
     </com.google.android.material.appbar.AppBarLayout>
-    <ListView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/swipe"
         android:layout_below="@id/topAppBarlayout"
-        android:id="@+id/listview"
-/>
+        >
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/topAppBarlayout"
+            android:id="@+id/listview"
+            />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </RelativeLayout>

@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 //import com.example.splashscreen.R;
 
@@ -38,6 +39,7 @@ public class HistoryFragment extends Fragment {
         View myview = inflater.inflate(R.layout.fragment_history, container, false);
         ListView listView=myview.findViewById(R.id.listview);
         ArrayList<DataModelForHistory> data =new ArrayList<DataModelForHistory>();
+        ArrayList<DataModelForHistory> reverse_data =new ArrayList<DataModelForHistory>();
         toolbar=getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("History");
         firebaseDatabase.getReference("users/drivers").child(user.getUid()).child("history").addValueEventListener(new ValueEventListener() {
@@ -48,6 +50,7 @@ public class HistoryFragment extends Fragment {
                     value=ds.getValue(DataModelForHistory.class);
                     data.add(value);
                 }
+                Collections.reverse(data);
                 listView.setAdapter(new CustomClassForHistory(getActivity(), data));
 
             }

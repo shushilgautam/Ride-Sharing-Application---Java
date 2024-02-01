@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ridesharing.Activity.HomeActivity;
 import com.example.ridesharing.Activity.PassengersListviewActivity;
 import com.example.ridesharing.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -276,6 +277,36 @@ public class HomeFragment extends Fragment {
         }
         return validity;
     }
+    private void notengaged(String existing_value) {
+        if(existing_value.equals("engaged")){
+            Log.d("Status","true");
+            startActivity(new Intent(getActivity(),PassengersListviewActivity.class));
+        }
+    };
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseDatabase firebaseDatabase1=FirebaseDatabase.getInstance();
+        FirebaseAuth auth=FirebaseAuth.getInstance();
+        FirebaseUser user=auth.getCurrentUser();
 
+        firebaseDatabase1.getReference("users/drivers").child(user.getUid()).child("existing_rides").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String existing_value;
+                Log.d("Snapshot",snapshot.toString());
+                existing_value=snapshot.getValue().toString();
+                Log.d( "onDataChange: ",existing_value);
+                notengaged(existing_value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
 }

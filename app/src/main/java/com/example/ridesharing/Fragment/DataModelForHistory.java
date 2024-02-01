@@ -47,6 +47,9 @@ public class DataModelForHistory {
         this.ride_status = ride_status;
     }
 
+
+
+
     public DataModelForHistory(String current_location, String final_destination, String time, String date, String ride_status) {
         this.current_location = current_location;
         this.final_destination = final_destination;

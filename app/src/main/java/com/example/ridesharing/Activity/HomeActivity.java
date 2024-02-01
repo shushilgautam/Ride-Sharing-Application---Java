@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.ridesharing.Fragment.HistoryFragment;
 import com.example.ridesharing.Fragment.HomeFragment;
 import com.example.ridesharing.Fragment.LogoutFragment;
+import com.example.ridesharing.Fragment.PassengersModeFragment;
 import com.example.ridesharing.Fragment.ProfileFragment;
 import com.example.ridesharing.Fragment.RideDetailsFragment;
 import com.example.ridesharing.Fragment.SettingFragment;
@@ -106,42 +107,15 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-    private void notengaged(String existing_value) {
-        if(existing_value.equals("engaged")){
-            Log.d("Status","true");
-            startActivity(new Intent(HomeActivity.this,PassengersListviewActivity.class));
-        }
-    };
+
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+//        super.onBackPressed();
         
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseDatabase firebaseDatabase1=FirebaseDatabase.getInstance();
-        FirebaseAuth auth=FirebaseAuth.getInstance();
-        FirebaseUser user=auth.getCurrentUser();
-        firebaseDatabase1.getReference("users/drivers").child(user.getUid()).child("existing_rides").addValueEventListener(new ValueEventListener() {
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String existing_value;
-                existing_value=snapshot.getValue().toString();
-                Log.d( "onDataChange: ",existing_value);
-                notengaged(existing_value);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

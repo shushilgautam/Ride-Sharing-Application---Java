@@ -73,7 +73,7 @@
             android:drawableStart="@drawable/my_location"
             android:drawablePadding="10dp"
             android:id="@+id/currentLocation"
-            android:text="New Summit College,Santinager"
+            android:text="Baneswor"
             />
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
@@ -88,7 +88,7 @@
             android:drawableStart="@drawable/final_location"
             android:drawablePadding="10dp"
             android:id="@+id/finalDestination"
-            android:text="Bus sewa office,Kalanki"
+            android:text="Dhulikhel"
             />
 
         <com.google.android.material.textview.MaterialTextView
