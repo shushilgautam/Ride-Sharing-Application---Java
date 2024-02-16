@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Fragment.CustomSubscriptionFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="Date"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_for_event_menu"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            app:endIconMode="none"
+            app:hintEnabled="false"
+            app:startIconDrawable="@drawable/calender"
+            app:startIconTint="@color/green_main"
+            >
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:hint="Start Date"
+                android:textSize="18dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_for_event_menu"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            app:endIconMode="none"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            app:hintEnabled="false"
+            app:startIconDrawable="@drawable/calender"
+            app:startIconTint="@color/green_main"
+            >
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:hint="End Date"
+                android:textSize="18dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="Time"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edittext_for_event_menu"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:endIconMode="none"
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/time"
+        app:startIconTint="@color/green_main">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Eg: 10:50"
+            android:inputType="none"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="Select Weekdays"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        >
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Monday"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_for_event_menu"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Tuesday"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_for_event_menu"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        >
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Wednesday"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_for_event_menu"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Thursday"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_for_event_menu"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        >
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Friday"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_for_event_menu"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Saturday"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_for_event_menu"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+
+
+
+    </LinearLayout>
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Sunday"
+        android:textSize="18dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/edittext_for_event_menu"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+
+</LinearLayout>

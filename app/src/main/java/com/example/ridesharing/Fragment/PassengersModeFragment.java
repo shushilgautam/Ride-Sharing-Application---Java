@@ -69,121 +69,121 @@ public class PassengersModeFragment extends Fragment {
         toolbar.setTitle("Passengers Mode");
         included = myview.findViewById(R.id.included);
 
-        currentLocation = included.findViewById(R.id.currentLocation);
-        finalDestination = included.findViewById(R.id.finalDestination);
-        timePicker = included.findViewById(R.id.timepicker);
-        datePicker = included.findViewById(R.id.datePicker);
-        hidebtn = included.findViewById(R.id.hide_button);
-        showbtn = myview.findViewById(R.id.show_button);
-        find = included.findViewById(R.id.find);
-        bikeMode = included.findViewById(R.id.bike);
-        carMode = included.findViewById(R.id.car);
-        defaultmode();
-        new MaterialAlertDialogBuilder(getActivity()).setTitle("Testing....")
-                .setMessage("Hello world my name is something....")
-                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).show();
-        progressDialog= new ProgressDialog(getActivity());
-        bikeMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bikeMode.setBackgroundResource(R.color.primaryButtonColor);
-                bikeMode.setTextColor(Color.WHITE);
-                carMode.setBackgroundResource(R.color.white);
-                carMode.setTextColor(Color.BLACK);
-            }
-        });
-        carMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                carMode.setBackgroundResource(R.color.primaryButtonColor);
-                carMode.setTextColor(Color.WHITE);
-                bikeMode.setBackgroundResource(R.color.white);
-                bikeMode.setTextColor(Color.BLACK);
-            }
-        });
-
-
-        find.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SearchRide();
-            }
-        });
-        hidebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                included.setVisibility(View.INVISIBLE);
-                hidebtn.setVisibility(View.INVISIBLE);
-                showbtn.setVisibility(View.VISIBLE);
-            }
-        });
-        showbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                included.setVisibility(View.VISIBLE);
-                hidebtn.setVisibility(View.VISIBLE);
-                showbtn.setVisibility(View.INVISIBLE);
-            }
-        });
-        currentLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentLocation.setError(null);
-            }
-        });
-        finalDestination.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finalDestination.setError(null);
-            }
-        });
-        timePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timePicker.setError(null);
-                final Calendar calender = Calendar.getInstance();
-                MaterialTimePicker picker = new MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_12H).setHour(calender.get(Calendar.HOUR_OF_DAY)).setMinute(calender.get(Calendar.MINUTE)).setTitleText("Pick Time").setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
-//                        .setTheme(R.style.TimePickerTheme)
-                        .build();
-                picker.addOnPositiveButtonClickListener(new View.OnClickListener() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onClick(View v) {
-                        String time = new String();
-                        if (String.valueOf(picker.getMinute()).length() != 2) {
-                            time = String.valueOf(picker.getHour()) + ":0" + String.valueOf(picker.getMinute());
-                        } else {
-                            time = String.valueOf(picker.getHour()) + ":" + String.valueOf(picker.getMinute());
-                        }
-                        timePicker.setText(time);
-                    }
-                });
-                picker.show(getFragmentManager(), "Tag");
-
-            }
-        });
-        datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePicker.setError(null);
-                MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select Date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).setTheme(com.google.android.material.R.style.ThemeOverlay_Material3_MaterialCalendar).build();
-
-                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-                    @Override
-                    public void onPositiveButtonClick(Long selection) {
-                        String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date(selection));
-                        datePicker.setText(MessageFormat.format("{0}", date));
-                    }
-                });
-                materialDatePicker.show(getFragmentManager(), "Tag");
-
-            }
-        });
+//        currentLocation = included.findViewById(R.id.currentLocation);
+//        finalDestination = included.findViewById(R.id.finalDestination);
+//        timePicker = included.findViewById(R.id.timepicker);
+//        datePicker = included.findViewById(R.id.datePicker);
+//        hidebtn = included.findViewById(R.id.hide_button);
+//        showbtn = myview.findViewById(R.id.show_button);
+//        find = included.findViewById(R.id.find);
+//        bikeMode = included.findViewById(R.id.bike);
+//        carMode = included.findViewById(R.id.car);
+//        defaultmode();
+//        new MaterialAlertDialogBuilder(getActivity()).setTitle("Testing....")
+//                .setMessage("Hello world my name is something....")
+//                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                }).show();
+//        progressDialog= new ProgressDialog(getActivity());
+//        bikeMode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                bikeMode.setBackgroundResource(R.color.primaryButtonColor);
+//                bikeMode.setTextColor(Color.WHITE);
+//                carMode.setBackgroundResource(R.color.white);
+//                carMode.setTextColor(Color.BLACK);
+//            }
+//        });
+//        carMode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                carMode.setBackgroundResource(R.color.primaryButtonColor);
+//                carMode.setTextColor(Color.WHITE);
+//                bikeMode.setBackgroundResource(R.color.white);
+//                bikeMode.setTextColor(Color.BLACK);
+//            }
+//        });
+//
+//
+//        find.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SearchRide();
+//            }
+//        });
+//        hidebtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                included.setVisibility(View.INVISIBLE);
+//                hidebtn.setVisibility(View.INVISIBLE);
+//                showbtn.setVisibility(View.VISIBLE);
+//            }
+//        });
+//        showbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                included.setVisibility(View.VISIBLE);
+//                hidebtn.setVisibility(View.VISIBLE);
+//                showbtn.setVisibility(View.INVISIBLE);
+//            }
+//        });
+//        currentLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                currentLocation.setError(null);
+//            }
+//        });
+//        finalDestination.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finalDestination.setError(null);
+//            }
+//        });
+//        timePicker.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                timePicker.setError(null);
+//                final Calendar calender = Calendar.getInstance();
+//                MaterialTimePicker picker = new MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_12H).setHour(calender.get(Calendar.HOUR_OF_DAY)).setMinute(calender.get(Calendar.MINUTE)).setTitleText("Pick Time").setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+////                        .setTheme(R.style.TimePickerTheme)
+//                        .build();
+//                picker.addOnPositiveButtonClickListener(new View.OnClickListener() {
+//                    @SuppressLint("SetTextI18n")
+//                    @Override
+//                    public void onClick(View v) {
+//                        String time = new String();
+//                        if (String.valueOf(picker.getMinute()).length() != 2) {
+//                            time = String.valueOf(picker.getHour()) + ":0" + String.valueOf(picker.getMinute());
+//                        } else {
+//                            time = String.valueOf(picker.getHour()) + ":" + String.valueOf(picker.getMinute());
+//                        }
+//                        timePicker.setText(time);
+//                    }
+//                });
+//                picker.show(getFragmentManager(), "Tag");
+//
+//            }
+//        });
+//        datePicker.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                datePicker.setError(null);
+//                MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select Date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).setTheme(com.google.android.material.R.style.ThemeOverlay_Material3_MaterialCalendar).build();
+//
+//                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+//                    @Override
+//                    public void onPositiveButtonClick(Long selection) {
+//                        String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date(selection));
+//                        datePicker.setText(MessageFormat.format("{0}", date));
+//                    }
+//                });
+//                materialDatePicker.show(getFragmentManager(), "Tag");
+//
+//            }
+//        });
         return myview;
     }
 
