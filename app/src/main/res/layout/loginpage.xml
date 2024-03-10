@@ -110,16 +110,16 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/password"/>
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:id="@+id/forgotPasswordTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="228dp"
-            android:textStyle="bold"
-            android:text="FORGOT PASSWORD"
-            android:textColor="@color/purple_700"
-            android:textSize="16dp" />
+<!--        <TextView-->
+<!--            android:id="@+id/forgotPasswordTextView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginLeft="228dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:text="FORGOT PASSWORD"-->
+<!--            android:textColor="@color/purple_700"-->
+<!--            android:textSize="16dp" />-->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/continebutton"
@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:drawableLeft="@drawable/arrow"
+            android:drawableLeft="@drawable/right_arrow"
             android:padding="10dp"
             android:paddingStart="10dp"
             android:text="Continue"

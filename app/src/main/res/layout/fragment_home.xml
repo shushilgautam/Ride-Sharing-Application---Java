@@ -20,23 +20,13 @@
         android:layout_alignParentTop="true"
         app:icon="@drawable/down_square"
         app:cornerRadius="5dp"
-        app:iconSize="40dp"
+        app:iconSize="30dp"
+        app:iconTint="@color/primaryIconColor"
         android:layout_alignParentRight="true"
         android:backgroundTint="@color/white"
         android:id="@+id/show_button"
         />
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Widget.Material3.Button.IconButton"
-        android:layout_below="@id/included"
-        app:icon="@drawable/up_square"
-        app:cornerRadius="5dp"
-        app:iconSize="40dp"
-        android:layout_alignParentRight="true"
-        android:backgroundTint="@color/white"
-        android:id="@+id/hide_button"
-        />
+
 
 
 </RelativeLayout>

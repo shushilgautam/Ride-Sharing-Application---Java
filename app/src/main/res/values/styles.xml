@@ -1,15 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="GreenOutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:textColor">@color/green</item>
-        <item name="strokeColor">@color/green</item>
-        <item name="strokeWidth">2dp</item>
+    <style name="ActivityAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_left</item>
+    </style>
+    <style name="StyledDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/progress_dialog_background</item>
+    </style>
+<!--    dialog animation event creator-->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_out_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_in_top</item>
+    </style>
+    <style name="MyToolbar" parent="@style/Widget.MaterialComponents.Toolbar">
+
+
+
+
+
+    </style>
+    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.Material3">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+<!--        <item name="colorSurfaceContainerHighest">@color/green_button</item>-->
+<!--        <item name="colorSurfaceContainerHigh">@color/green_button</item>-->
+<!--        <item name="colorSurfaceContainer">@color/blue_button</item>-->
+<!--        <item name="shapeAppearanceOverlay">@null</item>-->
+<!--        <item name="colorSecondaryContainer">@color/blue_button</item>-->
     </style>
 
-    <style name="DialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/slide_out_from_top</item>
-        <item name="android:windowExitAnimation">@anim/slide_in_to_top</item>
+    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/blue_button</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+<!--        <item name="cornerFamily">cut</item>-->
+        <item name="cornerSize">8dp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+<!--    full screen dialog-->
+    <style name="FullScreenDialogTheme" parent="Theme.AppCompat.DayNight.DialogWhenLarge">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+    </style>
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
 
 </resources>
