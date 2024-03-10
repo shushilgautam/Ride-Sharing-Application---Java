@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -15,7 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ridesharing.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class VehiclePhotoActivity extends AppCompatActivity {
@@ -24,88 +34,129 @@ public class VehiclePhotoActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_PICK = 2;
 
     private ImageView photoImageView;
+    private Uri selectedImageUri;
+    private DatabaseReference databaseReference;
+    private StorageReference storageReference;
+
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vehiclephoto);
 
+        photoImageView = findViewById(R.id.photoImageView);
+        MaterialButton addPhotoButton = findViewById(R.id.addd);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("users/driversinfo").child(user.getUid()).child("VehicleImg");
+        storageReference = FirebaseStorage.getInstance().getReference().child("vehiclephoto");
 
-            photoImageView = findViewById(R.id.photoImageView);
+        addPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showImageSourceDialog();
+            }
+        });
 
-
-            // Set click listener for "Add a photo" button
-            MaterialButton addPhotoButton = findViewById(R.id.addd);
-            addPhotoButton.setOnClickListener(view -> showImageSourceDialog());
-
-
-        }
-
-        private void showImageSourceDialog() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Choose Image Source");
-
-            // Add options to the dialog
-            String[] options = {"Camera", "Gallery"};
-            builder.setItems(options, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which) {
-                        case 0:
-                            // Camera option selected
-                            dispatchTakePictureIntent();
-                            break;
-                        case 1:
-                            // Gallery option selected
-                            pickImageFromGallery();
-                            break;
-                    }
+        findViewById(R.id.btndone).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedImageUri != null) {
+                    uploadImage(selectedImageUri);
+                } else {
+                    Toast.makeText(VehiclePhotoActivity.this, "Please select an image", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }
+        });
+    }
 
-            // Show the dialog
-            builder.show();
+    private void showImageSourceDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Image Source");
+        String[] options = {"Camera", "Gallery"};
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        dispatchTakePictureIntent();
+                        break;
+                    case 1:
+                        pickImageFromGallery();
+                        break;
+                }
+            }
+        });
+        builder.show();
+    }
+
+    private void pickImageFromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, REQUEST_IMAGE_PICK);
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
-        private void pickImageFromGallery() {
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(galleryIntent, REQUEST_IMAGE_PICK);
-        }
-        private void dispatchTakePictureIntent() {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_IMAGE_CAPTURE) {
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                photoImageView.setImageBitmap(imageBitmap);
+                selectedImageUri = getImageUri(imageBitmap);
+            } else if (requestCode == REQUEST_IMAGE_PICK) {
+                selectedImageUri = data.getData();
+                photoImageView.setImageURI(selectedImageUri);
             }
         }
+    }
 
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
+    private Uri getImageUri(Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null);
+        return Uri.parse(path);
+    }
 
-            if (resultCode == Activity.RESULT_OK) {
-                if (requestCode == REQUEST_IMAGE_CAPTURE) {
-                    Bundle extras = data.getExtras();
-                    if (extras != null) {
-                        Bitmap imageBitmap = (Bitmap) extras.get("data");
-                        if (imageBitmap != null) {
-                            photoImageView.setImageBitmap(imageBitmap);
-                        }
-                    }
-                } else if (requestCode == REQUEST_IMAGE_PICK && data != null) {
-                    // User selected an image from the gallery
-                    // The URI of the selected image can be obtained from data.getData()
-                    Uri selectedImageUri = data.getData();
-
-                    // Now you can use the selectedImageUri to load the image into the ImageView
-                    try {
-                        Bitmap selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                        // Set the selected image to the ImageView
-                        photoImageView.setImageBitmap(selectedImageBitmap);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        // Handle the exception, e.g., show an error message
-                    }
-                }
-
-            }
+    private void uploadImage(Uri imageUri) {
+        if (imageUri != null) {
+            StorageReference fileReference = storageReference.child(System.currentTimeMillis()
+                    + ".jpg");
+            fileReference.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                            String imageUrl = uri.toString();
+                            saveImageUrlToDatabase(imageUrl);
+                            // Return back to VehicleInfoActivity
+                            setResult(RESULT_OK);
+                            finish();
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(VehiclePhotoActivity.this, "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    private void saveImageUrlToDatabase(String imageUrl) {
+        // Directly set the value under the "VehicleImg" node
+        databaseReference.child("image_url").setValue(imageUrl)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                    // Return to VehicleInfoActivity
+                    setResult(RESULT_OK);
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
 }

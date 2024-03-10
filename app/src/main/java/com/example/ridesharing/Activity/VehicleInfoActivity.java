@@ -35,7 +35,7 @@ public class VehicleInfoActivity extends AppCompatActivity {
         numberplate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(VehicleInfoActivity.this,NumberPlateActivity.class);
+                Intent i = new Intent(VehicleInfoActivity.this,NumberplateActivity.class);
                 startActivity(i);
             }
         });

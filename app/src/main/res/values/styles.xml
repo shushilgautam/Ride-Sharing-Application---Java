@@ -11,4 +11,5 @@
         <item name="android:windowEnterAnimation">@anim/slide_out_from_top</item>
         <item name="android:windowExitAnimation">@anim/slide_in_to_top</item>
     </style>
+
 </resources>

@@ -31,6 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50sp"
+            app:endIconMode="clear_text"
+            app:counterEnabled="true"
+            app:counterMaxLength="12"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -38,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="30"
+                android:maxLength="10"
                 android:id="@+id/lic_number"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>

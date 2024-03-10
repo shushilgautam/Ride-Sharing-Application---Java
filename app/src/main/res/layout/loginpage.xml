@@ -153,17 +153,6 @@
             app:cornerRadius="20sp" />
 
         <TextView
-            android:id="@+id/forgotPasswordTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/googlebutton"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="15sp"
-            android:text="Forgot Your Password?"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-
-        <TextView
             android:id="@+id/signupTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

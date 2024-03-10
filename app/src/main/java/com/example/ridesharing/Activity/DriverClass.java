@@ -1,62 +1,47 @@
 package com.example.ridesharing.Activity;
 
 public class DriverClass {
-    String driverid,vehicleNumber,vehicleName,vehiclePhoto,liscenseNumber,liscensePhoto;
+    private String driverId;
+    private String licenseNumber;
+    private String photo1Url;
+    private String photo2Url;
 
-    public String getDriverid() {
-        return driverid;
+
+    public String getDriverId() {
+        return driverId;
     }
 
-    public void setDriverid(String driverid) {
-        this.driverid = driverid;
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
     }
 
-    public String getVehicleNumber() {
-        return vehicleNumber;
+    public String getLicenseNumber() {
+        return licenseNumber;
     }
 
-    public void setVehicleNumber(String vehicleNumber) {
-        this.vehicleNumber = vehicleNumber;
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
     }
 
-    public String getVehicleName() {
-        return vehicleName;
+    public String getPhoto1Url() {
+        return photo1Url;
     }
 
-    public void setVehicleName(String vehicleName) {
-        this.vehicleName = vehicleName;
+    public void setPhoto1Url(String photo1Url) {
+        this.photo1Url = photo1Url;
     }
 
-    public String getVehiclePhoto() {
-        return vehiclePhoto;
+    public String getPhoto2Url() {
+        return photo2Url;
     }
 
-    public void setVehiclePhoto(String vehiclePhoto) {
-        this.vehiclePhoto = vehiclePhoto;
+    public void setPhoto2Url(String photo2Url) {
+        this.photo2Url = photo2Url;
     }
 
-    public String getLiscenseNumber() {
-        return liscenseNumber;
-    }
-
-    public void setLiscenseNumber(String liscenseNumber) {
-        this.liscenseNumber = liscenseNumber;
-    }
-
-    public String getLiscensePhoto() {
-        return liscensePhoto;
-    }
-
-    public void setLiscensePhoto(String liscensePhoto) {
-        this.liscensePhoto = liscensePhoto;
-    }
-
-    public DriverClass(String driverid, String vehicleNumber, String vehicleName, String vehiclePhoto, String liscenseNumber, String liscensePhoto) {
-        this.driverid = driverid;
-        this.vehicleNumber = vehicleNumber;
-        this.vehicleName = vehicleName;
-        this.vehiclePhoto = vehiclePhoto;
-        this.liscenseNumber = liscenseNumber;
-        this.liscensePhoto = liscensePhoto;
+    public DriverClass(String licenseNumber, String photo1Url, String photo2Url) {
+        this.licenseNumber = licenseNumber;
+        this.photo1Url = photo1Url;
+        this.photo2Url = photo2Url;
     }
 }

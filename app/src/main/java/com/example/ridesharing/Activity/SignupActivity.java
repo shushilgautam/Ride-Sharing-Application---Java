@@ -153,11 +153,11 @@ public class SignupActivity extends AppCompatActivity {
                     isValid = false;
                 } else if (!isValidPassword(userpassword, confirmpassword)) {
                     tilConfirmPassword.setError("Passwords do not match");
-                    tilConfirmPassword.setErrorEnabled(true); // Enable error visibility
+                   // tilConfirmPassword.setErrorEnabled(true); // Enable error visibility
                     isValid = false;
                 } else {
                     tilConfirmPassword.setError(null);
-                    tilConfirmPassword.setErrorEnabled(false); // Disable error visibility
+                   // tilConfirmPassword.setErrorEnabled(false); // Disable error visibility
                 }
 
                 return isValid;

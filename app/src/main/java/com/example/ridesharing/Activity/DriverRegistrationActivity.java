@@ -27,8 +27,8 @@ public class DriverRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DriverRegistrationActivity.this, BasicInfoActivity.class);
-                startActivity(intent);
+              //  Intent intent = new Intent(DriverRegistrationActivity.this, BasicInfoActivity.class);
+             //   startActivity(intent);
             }
         });
         driverlicense.setOnClickListener(new View.OnClickListener() {

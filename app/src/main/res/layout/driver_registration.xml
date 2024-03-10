@@ -68,17 +68,5 @@
                 android:layout_marginTop="20sp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="70sp"
-        android:id="@+id/btndone"
-        android:text="Done"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_marginTop="30sp"
-        app:backgroundTint="#6F7685"
-        app:cornerRadius="30sp"
-        android:textAllCaps="false"/>
+
 </LinearLayout>

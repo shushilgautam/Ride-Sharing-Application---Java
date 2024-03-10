@@ -3,7 +3,6 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="20dp"
     >
@@ -65,14 +64,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="From: tinkune "
-                        android:id="@+id/location"
-                        android:textSize="20sp"
-                        android:textColorHint="@color/black"
                         android:textColor="@color/black"
-                        />
+                        android:textColorHint="@color/black"
+                        android:textSize="20sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

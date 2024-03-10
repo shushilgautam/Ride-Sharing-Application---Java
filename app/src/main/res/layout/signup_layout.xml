@@ -137,7 +137,6 @@
         app:endIconMode="password_toggle"
         android:hint="Confirm Password"
         app:counterEnabled="true"
-        app:errorEnabled="true"
 
 
         >
