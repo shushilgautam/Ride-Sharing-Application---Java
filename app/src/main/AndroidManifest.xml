@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -58,7 +59,42 @@
             android:exported="true" />
         <activity
             android:name=".Activity.OTPActivity"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.DriverRegistrationActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.DriverLiscenseActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.VehicleInfoActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.IdConfirmation"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.BrandTraspotActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.NumberplateActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.VehiclePhotoActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.BillBookActivity"
+            android:exported="true">
+        </activity>
+
+
     </application>
 
 </manifest>

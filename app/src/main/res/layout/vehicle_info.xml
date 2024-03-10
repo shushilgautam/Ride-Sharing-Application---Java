@@ -10,7 +10,7 @@
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registration"
+        android:text="Vehicle Info"
         android:layout_gravity="center"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -28,8 +28,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Basic info"
-                android:id="@+id/txt_basic"
+                android:text="Select transport"
+                android:id="@+id/txt_transport"
                 android:textSize="30sp"
                 android:textColor="@android:color/black"
                 android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
@@ -38,8 +38,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Driver license"
-                android:id="@+id/txt_license"
+                android:text="Number plate"
+                android:id="@+id/txt_numberplate"
                 android:textSize="30sp"
                 android:textColor="@android:color/black"
                 android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
@@ -48,8 +48,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Vehicle info"
-                android:id="@+id/txt_vehicleinfo"
+                android:text="Photo of vehicle"
+                android:id="@+id/txt_vehiclephoto"
                 android:textSize="30sp"
                 android:textColor="@android:color/black"
                 android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
@@ -58,8 +58,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ID information"
-                android:id="@+id/txt_idinfo"
+                android:text="Billbook"
+                android:id="@+id/txt_billbook"
                 android:textSize="30sp"
                 android:textColor="@android:color/black"
                 android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
@@ -68,5 +68,17 @@
                 android:layout_marginTop="20sp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:id="@+id/btndone"
+        android:text="Done"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_marginTop="30sp"
+        app:backgroundTint="#6F7685"
+        app:cornerRadius="30sp"
+        android:textAllCaps="false"/>
 </LinearLayout>
