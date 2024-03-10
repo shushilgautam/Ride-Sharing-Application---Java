@@ -79,14 +79,7 @@ public class PassengersModeFragment extends Fragment {
 //        bikeMode = included.findViewById(R.id.bike);
 //        carMode = included.findViewById(R.id.car);
 //        defaultmode();
-//        new MaterialAlertDialogBuilder(getActivity()).setTitle("Testing....")
-//                .setMessage("Hello world my name is something....")
-//                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                }).show();
+//
 //        progressDialog= new ProgressDialog(getActivity());
 //        bikeMode.setOnClickListener(new View.OnClickListener() {
 //            @Override

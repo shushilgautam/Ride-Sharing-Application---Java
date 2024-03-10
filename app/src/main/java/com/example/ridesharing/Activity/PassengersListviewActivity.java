@@ -59,13 +59,10 @@ public class PassengersListviewActivity extends AppCompatActivity {
         });
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
         Intent i=getIntent();
-        String time,date,currentlocation,finaldestination;
-        if(i.getStringExtra("time")!=null){
-            time=i.getStringExtra("time");
-            date=i.getStringExtra("date");
-            currentlocation=i.getStringExtra("currentLocation");
-            finaldestination=i.getStringExtra("finalDestination");
-            myEdit.putString("ride_name",currentlocation + "-to-" + finaldestination + "-at-time-" + time + "-and-date-" + date).apply();
+        String key;
+        if(i.getStringExtra("key")!=null){
+            key=i.getStringExtra("key");
+            myEdit.putString("ride_name",key).apply();
         }
         loadListview();
 //        if(!sharedPreferences.getString("ride_name","").isBlank()){
@@ -81,10 +78,10 @@ public class PassengersListviewActivity extends AppCompatActivity {
     }
 
     private void loadListview() {
-        rideTableName=sharedPreferences.getString("ride_name","");
+        rideTableName=sharedPreferences.getString("key","");
         Log.d( "onCreate: ",rideTableName);
 
-        firebaseDatabase.getReference("driverRides").child(rideTableName).child("passengers_list").addValueEventListener(new ValueEventListener() {
+        firebaseDatabase.getReference("driverRides").child("Realtime").child(rideTableName).child("passengers_list").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 

@@ -30,7 +30,7 @@
                 android:layout_alignParentTop="true"
                 app:collapseIcon="@drawable/right_arrow"
                 app:menu="@menu/appbar_menu"
-                app:title="Driver Mode"
+                app:title="Passenger Mode"
                 app:titleCentered="true"
                 app:titleTextColor="@color/black" />
         </com.google.android.material.appbar.AppBarLayout>
@@ -43,20 +43,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
+
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/loadEventMenu"
+            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
-            android:text="Create Ride"
-            app:icon="@drawable/add"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Find Ride"
             android:textAllCaps="false"
             android:textStyle="bold"
             app:cornerRadius="10dp"
-            android:id="@+id/loadEventMenu"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
-            />
+            app:icon="@drawable/search" />
 
     </RelativeLayout>
     <com.google.android.material.navigation.NavigationView

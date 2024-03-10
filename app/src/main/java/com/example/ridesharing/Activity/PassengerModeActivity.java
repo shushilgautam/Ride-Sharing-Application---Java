@@ -15,7 +15,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,6 +24,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.ridesharing.Fragment.PassengersModeFragment;
 import com.example.ridesharing.R;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -34,14 +34,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -53,7 +49,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class PassengerModeActivity extends AppCompatActivity implements OnMapReadyCallback {
     FrameLayout fl;
     FragmentTransaction ft;
     DrawerLayout dl;
@@ -68,11 +64,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     int Location_Request_Code = 100;
     LocationRequest locationRequest;
     FusedLocationProviderClient fusedLocationProviderClient;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_passenger_mode);
+
         dl = findViewById(R.id.drawerlayout);
         nv = findViewById(R.id.navigation);
 //        fl= findViewById(R.id.framelayout);
@@ -86,58 +82,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         createride.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                final Dialog dialog=new Dialog(HomeActivity.this);
-//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                dialog.setContentView(R.layout.uppersheet_menu_layout);
-//                dropdown_menu=dialog.findViewById(R.id.dropdown_menu);
-//                adapter=new ArrayAdapter<String>(HomeActivity.this,R.layout.dropdown_list,items);
-//                dropdown_menu.setAdapter(adapter);
-//                FragmentManager fm=getSupportFragmentManager();
-//                FragmentTransaction ft= fm.beginTransaction();
-//                ft.add(R.id.frame, new WeaklySubscriptionFragment());
-//                ft.commit();
-//                dropdown_menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        if (items[position].equals("Today")) {
-////                    do nothing
-//                            FragmentManager fm=getSupportFragmentManager();
-//                            FragmentTransaction ft= fm.beginTransaction();
-//                            ft.replace(R.id.frame, new TodaySubscriptionFragment());
-//                            ft.commit();
-//                        } else if (items[position].equals("Weekly")) {
-//                            FragmentManager fm=getSupportFragmentManager();
-//                            FragmentTransaction ft= fm.beginTransaction();
-//                            ft.replace(R.id.frame, new WeaklySubscriptionFragment());
-//                            ft.commit();
-//                        } else if (items[position].equals("Custom")) {
-//                            FragmentManager fm=getSupportFragmentManager();
-//                            FragmentTransaction ft= fm.beginTransaction();
-//                            ft.replace(R.id.frame, new CustomSubscriptionFragment());
-//                            ft.commit();
-//                        }else{
-//                            Toast.makeText(HomeActivity.this, "error", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.getWindow().getAttributes().windowAnimations=R.style.DialogAnimation;
-//                dialog.getWindow().setGravity(Gravity.TOP);
-//                dialog.show();
-
-
-                DialogFragment dialogFragment = FullScreenDialog.newInstance();
+                DialogFragment dialogFragment = FullScreenDialog2.newInstance();
                 dialogFragment.show(getSupportFragmentManager(), "tag");
 
             }
         });
-        adt = new ActionBarDrawerToggle(HomeActivity.this, dl, tb, R.string.openDrawer, R.string.closeDrawer);
-//        setSupportActionBar(tb)
-//        getSupportActionBar().setTitle("Introduction");
-//        ft=getSupportFragmentManager().beginTransaction();
-//        ft.add(R.id.framelayout,new HomeFragment());
-//        ft.commit();
+        adt = new ActionBarDrawerToggle(PassengerModeActivity.this, dl, tb, R.string.openDrawer, R.string.closeDrawer);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -201,8 +151,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     private void requestForPermission() {
-                // asking for location
-        locationRequest=LocationRequest.create();
+        // asking for location
+        locationRequest= LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(3000);
@@ -221,13 +171,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     if (e.getStatusCode()== LocationSettingsStatusCodes.RESOLUTION_REQUIRED){
                         ResolvableApiException resolvableApiException=(ResolvableApiException) e;
                         try {
-                            resolvableApiException.startResolutionForResult(HomeActivity.this,101);
+                            resolvableApiException.startResolutionForResult(PassengerModeActivity.this,101);
                         } catch (IntentSender.SendIntentException ex) {
                             ex.printStackTrace();
                         }
                     }
                     if (e.getStatusCode()==LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE){
-                        Toast.makeText(HomeActivity.this, e.getMessage(), LENGTH_SHORT).show();
+                        Toast.makeText(PassengerModeActivity.this, e.getMessage(), LENGTH_SHORT).show();
                     }
                 }
             }
@@ -287,7 +237,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void notengaged(String existing_value) {
         if(existing_value.equals("engaged")){
             Log.d("Status","true");
-            startActivity(new Intent(HomeActivity.this,PassengersListviewActivity.class));
+            startActivity(new Intent(PassengerModeActivity.this,PassengersListviewActivity.class));
         }
     };
     @Override
@@ -310,7 +260,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PassengerModeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -9,17 +9,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="lightwhite">#F5DCDCDC</color>
+
     <color name="green">#39E75F</color>
     <color name="purple">#800080</color>
     <color name="blue_button">#4681F4</color>
     <color name="primaryButtonColor">#186db6</color>
-    <color name="red_button">#FD0000</color>
+    <color name="red_button">#FF004D</color>
     <color name="primaryColor">#FFFFFF</color>
     <color name="primaryLightColor">#60E496</color>
     <color name="primaryDarkColor">#F8F7F7</color>
     <color name="primaryIconColor">#000</color>
 
-    <color name="secondaryColor">#1de9b6</color>
+    <color name="secondaryColor">#2EC4B6</color>
     <color name="secondaryLightColor">#6effe8</color>
     <color name="secondaryDarkColor">#00b686</color>
     <color name="green_main">#2EC4B6</color>

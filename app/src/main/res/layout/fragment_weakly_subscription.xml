@@ -36,9 +36,11 @@
             app:startIconTint="@color/green_main"
             >
             <AutoCompleteTextView
+                android:padding="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:inputType="none"
+                android:id="@+id/startdate"
                 android:hint="Start Date"
                 android:textSize="18dp"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -59,10 +61,12 @@
             app:startIconTint="@color/green_main"
             >
             <AutoCompleteTextView
+                android:padding="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:inputType="none"
                 android:hint="End Date"
+                android:id="@+id/enddate"
                 android:textSize="18dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,10 +95,12 @@
         app:startIconTint="@color/green_main"
         >
         <AutoCompleteTextView
+            android:padding="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:inputType="none"
             android:hint="Eg: 10:50"
+            android:id="@+id/time"
             android:textSize="18dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="DialogAnimation">
+    <style name="ActivityAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
         <item name="android:windowExitAnimation">@anim/slide_out_left</item>
     </style>
     <style name="StyledDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/progress_dialog_background</item>
+    </style>
+<!--    dialog animation event creator-->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_out_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_in_top</item>
     </style>
     <style name="MyToolbar" parent="@style/Widget.MaterialComponents.Toolbar">
 
@@ -36,5 +41,15 @@
 <!--        <item name="cornerFamily">cut</item>-->
         <item name="cornerSize">8dp</item>
         <item name="cornerRadius">8dp</item>
+    </style>
+<!--    full screen dialog-->
+    <style name="FullScreenDialogTheme" parent="Theme.AppCompat.DayNight.DialogWhenLarge">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+    </style>
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
 </resources>
