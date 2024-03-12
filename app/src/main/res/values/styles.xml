@@ -52,5 +52,9 @@
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
-
+    <style name="GreenOutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:strokeColor">@color/green</item>
+        <item name="android:strokeWidth">@color/green</item>
+    </style>
 </resources>

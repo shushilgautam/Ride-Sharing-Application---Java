@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 firebaseAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                         Toast.makeText(LoginActivity.this, authResult.getUser().getDisplayName().toString(), Toast.LENGTH_SHORT).show();
+//                         Toast.makeText(LoginActivity.this, authResult.getUser().getDisplayName(, Toast.LENGTH_SHORT).show();
                         Intent i =new Intent(LoginActivity.this,HomeActivity.class);
 
                         startActivity(i);
