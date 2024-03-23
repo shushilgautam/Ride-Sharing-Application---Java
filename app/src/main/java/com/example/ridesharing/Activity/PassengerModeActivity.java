@@ -26,6 +26,9 @@ import android.widget.Toast;
 
 import com.example.ridesharing.Fragment.PassengersModeFragment;
 import com.example.ridesharing.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -73,6 +76,7 @@ public class PassengerModeActivity extends AppCompatActivity implements OnMapRea
         nv = findViewById(R.id.navigation);
 //        fl= findViewById(R.id.framelayout);
         tb = findViewById(R.id.toolbar);
+        tb.setTitle("Passengers Mode");
         createride = findViewById(R.id.loadEventMenu);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -118,10 +122,16 @@ public class PassengerModeActivity extends AppCompatActivity implements OnMapRea
                     //                  getSupportActionBar().setTitle("Features Products");
                 }
                 if (id == R.id.menu_logout) {
-//                    ft=getSupportFragmentManager().beginTransaction();
-//                    ft.replace(R.id.framelayout,new LogoutFragment());
-//                    ft.commit();
-                    //                   getSupportActionBar().setTitle("Contact US");
+                    GoogleSignInOptions gso = new GoogleSignInOptions.
+                            Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                            build();
+                    GoogleSignInClient googleSignInClient= GoogleSignIn.getClient(PassengerModeActivity.this,gso);
+                    if(googleSignInClient!=null) {
+                        googleSignInClient.signOut();
+                    }
+                    FirebaseAuth.getInstance().signOut();
+
+                    startActivity(new Intent(PassengerModeActivity.this,LoginActivity.class));
                 }
                 if (id == R.id.menu_home) {
 //                    ft=getSupportFragmentManager().beginTransaction();
@@ -247,22 +257,22 @@ public class PassengerModeActivity extends AppCompatActivity implements OnMapRea
         FirebaseAuth auth=FirebaseAuth.getInstance();
         FirebaseUser user=auth.getCurrentUser();
 
-        firebaseDatabase1.getReference("users/drivers").child(user.getUid()).child("existing_rides").addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String existing_value;
-                Log.d("Snapshot",snapshot.toString());
-                existing_value=snapshot.getValue().toString();
-                Log.d( "onDataChange: ",existing_value);
-                notengaged(existing_value);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(PassengerModeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        firebaseDatabase1.getReference("users/drivers").child(user.getUid()).child("existing_rides").addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                String existing_value;
+//                Log.d("Snapshot",snapshot.toString());
+//                existing_value=snapshot.getValue().toString();
+//                Log.d( "onDataChange: ",existing_value);
+//                notengaged(existing_value);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(PassengerModeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override

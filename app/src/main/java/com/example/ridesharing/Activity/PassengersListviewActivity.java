@@ -78,8 +78,8 @@ public class PassengersListviewActivity extends AppCompatActivity {
     }
 
     private void loadListview() {
-        rideTableName=sharedPreferences.getString("key","");
-        Log.d( "onCreate: ",rideTableName);
+        rideTableName=sharedPreferences.getString("ride_name","");
+        Log.d( "ridetablename: ",rideTableName);
 
         firebaseDatabase.getReference("driverRides").child("Realtime").child(rideTableName).child("passengers_list").addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,7 +90,7 @@ public class PassengersListviewActivity extends AppCompatActivity {
                     value=ds.getValue(DataModelForPassengers.class);
                     data.add(value);
                 }
-                Log.d("Hello data",data.toString());
+                Log.d("Passenger list data",data.toString());
                 listView.setAdapter(new CustomClassForPassengersList(PassengersListviewActivity.this, data,rideTableName));
             }
 

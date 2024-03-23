@@ -78,6 +78,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        fl= findViewById(R.id.framelayout);
         tb = findViewById(R.id.toolbar);
         createride = findViewById(R.id.loadEventMenu);
+        tb = findViewById(R.id.toolbar);
+        tb.setTitle("Driver Mode");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 

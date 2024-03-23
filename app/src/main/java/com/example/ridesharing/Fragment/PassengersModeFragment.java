@@ -202,7 +202,7 @@ public class PassengersModeFragment extends Fragment {
             currentlocation = currentLocation.getText().toString().trim();
             finaldestiantion = finalDestination.getText().toString().trim();
             setToEmpty();
-            String Ride_Key=currentlocation + "-to-" + finaldestiantion + "-at-time-" + time + "-and-date-" + date;
+            String Ride_Key=currentlocation + "-to-" + finaldestiantion;
             HashMap<String, Object> map = new HashMap<>();
             map.put("current_location", currentlocation);
             map.put("final_destination", finaldestiantion);

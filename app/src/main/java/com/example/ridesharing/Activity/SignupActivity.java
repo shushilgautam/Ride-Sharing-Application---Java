@@ -53,7 +53,10 @@ public class SignupActivity extends AppCompatActivity {
                     firebaseAuth.createUserWithEmailAndPassword(signupemail.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            UserProfileChangeRequest request=new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(signupfullname.getText().toString()).build();
+                            FirebaseUser user=authResult.getUser();
+                            user.updateProfile(request);
                             sendEmailVerification(user);
                             Toast.makeText(SignupActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
                             DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users/normal");

@@ -1,6 +1,7 @@
 package com.example.ridesharing.Activity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +31,7 @@ import com.example.ridesharing.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -170,11 +172,10 @@ public class FullScreenDialog2 extends DialogFragment {
                 });
 //                Log.d("hello","hello world after firebase");
                 if(dropdown_menu.getText().toString().equals(items[0])){
-//                    Toast.makeText(getActivity(), "create today ride", Toast.LENGTH_SHORT).show();
-//                    Log.d("hello","hello world inside today if");
-//                    createTodayRide();
+//
+                    findTodayRide();
                 } else if (dropdown_menu.getText().toString().equals(items[1])) {
-//                    Toast.makeText(getActivity(), "create weekly ride", Toast.LENGTH_SHORT).show();
+//
 //                    createWeeklyRide();
                 } else if (dropdown_menu.getText().toString().equals(items[2])) {
 //
@@ -187,6 +188,55 @@ public class FullScreenDialog2 extends DialogFragment {
 
 
         return myview;
+    }
+    String currentlocation, finaldestiantion;
+    private void findTodayRide() {
+        currentlocation = current_location.getText().toString().trim();
+        finaldestiantion = final_destination.getText().toString().trim();
+        String Ride_Key=currentlocation + "-to-" + finaldestiantion;
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("current_location", currentlocation);
+        map.put("final_destination", finaldestiantion);
+        map.put("passenger_uid",user.getUid());
+        map.put("fullname",user.getDisplayName());
+        firebaseDatabase.getReference("driverRides").child("Realtime").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild(Ride_Key)){
+                    firebaseDatabase.getReference("driverRides").child("Realtime").child(Ride_Key).child("passengers_list").child(user.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isComplete()){
+                                new MaterialAlertDialogBuilder(getActivity()).setTitle("Request Has been Submitted ")
+                                        .setMessage("Please wait while the driver accept the offer.It can take a few minutes.")
+                                        .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        }).show();
+                            }else{
+                                Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }else{
+                    new MaterialAlertDialogBuilder(getActivity()).setTitle("Ride Not Found")
+                            .setMessage("Sorry currently no drivers are available.Please try again after few minutes.")
+                            .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            }).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 

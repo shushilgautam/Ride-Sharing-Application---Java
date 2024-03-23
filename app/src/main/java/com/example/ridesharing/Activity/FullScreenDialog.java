@@ -210,6 +210,7 @@ public class FullScreenDialog extends DialogFragment {
         map.put("time_and_date", Calendar.getInstance().getTime().toString());
         map.put("driver_id", user.getUid());
         map.put("passengers_list", "");
+        map.put("finalpassengerlist","");
         map.put("ride_status", "Incomplete");
         firebaseDatabase.getReference("driverRides").child("Realtime").child(
                 current_location.getText().toString().trim() +"-to-"+final_destination.getText().toString().trim()
