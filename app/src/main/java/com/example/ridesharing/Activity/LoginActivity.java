@@ -47,9 +47,9 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
 
     TextInputEditText email, password;
-    private TextView forgotPassword, signup;
+    private TextView forgotPassword;
     FirebaseAuth auth = FirebaseAuth.getInstance();
-    MaterialButton Continue, phoneIntent;
+    MaterialButton Continue, phoneIntent,signup;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
@@ -71,16 +71,14 @@ public class LoginActivity extends AppCompatActivity {
         Continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()) {
 
+
+                if (!(email.getText().toString().isEmpty()) && !(password.getText().toString().isEmpty())) {
 
                     firebaseAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-//                         Toast.makeText(LoginActivity.this, authResult.getUser().getDisplayName(, Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-
-                            startActivity(i);
+                            validateYourEmailAndLogin("null");
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -88,6 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, "Inside else", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -143,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                 name = account.getDisplayName();
 
 
+
             } catch (ApiException e) {
                 Log.d(TAG, "error: " + e.getMessage());
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -151,11 +153,12 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth(token, name);
     }
 
-    private void validateYourEmailAndLogin() {
+    private void validateYourEmailAndLogin(String flag) {
+        Log.d("Flag for phone",flag);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser.isEmailVerified()) {
 
-            database.child("users/normal").child("normal").addValueEventListener(new ValueEventListener() {
+            database.child("users").child("normal").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.hasChild(currentUser.getUid())) {
@@ -167,6 +170,10 @@ public class LoginActivity extends AppCompatActivity {
                         map.put("id", currentUser.getUid());
                         map.put("name", currentUser.getDisplayName());
                         map.put("email", currentUser.getEmail());
+                        map.put("existing_rides", "free");
+                        map.put("driver_status", "Not Verified");
+                        map.put("phone", currentUser.getPhoneNumber());
+
                         database.child("users/normal").child(currentUser.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -187,8 +194,13 @@ public class LoginActivity extends AppCompatActivity {
             });
             email.setText("");
             password.setText("");
-            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(i);
+            if (flag.equals("Google")){
+                Intent i = new Intent(LoginActivity.this, PhoneActivity.class);
+                startActivity(i);
+            }else{
+                Intent i = new Intent(LoginActivity.this, PassengerModeActivity.class);
+                startActivity(i);
+            }
 
         } else {
             currentUser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -211,11 +223,15 @@ public class LoginActivity extends AppCompatActivity {
         auth.signInWithCredential(credential).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
+                String flag="null";
                 UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
                         .setDisplayName(fullname).build();
                 FirebaseUser user = authResult.getUser();
                 user.updateProfile(request);
-                validateYourEmailAndLogin();
+                if (user.getPhoneNumber()==null){
+                    flag="Google";
+                }
+                validateYourEmailAndLogin(flag);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -231,7 +247,7 @@ public class LoginActivity extends AppCompatActivity {
         if (auth.getCurrentUser() != null) {
             FirebaseUser user1 = auth.getCurrentUser();
             if (user1.isEmailVerified()) {
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                startActivity(new Intent(LoginActivity.this, PassengerModeActivity.class));
             }
         }
     }

@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ridesharing.Fragment.PassengersModeFragment;
@@ -52,21 +53,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class PassengerModeActivity extends AppCompatActivity implements OnMapReadyCallback {
-    FrameLayout fl;
-    FragmentTransaction ft;
+
     DrawerLayout dl;
     NavigationView nv;
     ActionBarDrawerToggle adt;
     MaterialToolbar tb;
     private GoogleMap gMap;
     MaterialButton createride;
-    String[] items = {"Today", "Weekly", "Custom"};
-    AutoCompleteTextView dropdown_menu;
-    ArrayAdapter<String> adapter;
+
     int Location_Request_Code = 100;
     LocationRequest locationRequest;
-    FusedLocationProviderClient fusedLocationProviderClient;
+    FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +74,65 @@ public class PassengerModeActivity extends AppCompatActivity implements OnMapRea
 
         dl = findViewById(R.id.drawerlayout);
         nv = findViewById(R.id.navigation);
+        MaterialButton modechanger=findViewById(R.id.modechangerbutton);
+        modechanger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference("users").child("normal").child(user.getUid()).child("driver_status").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String status=snapshot.getValue().toString();
+                        Log.d("driver_status",status);
+                        if(status.equals("Not Verified")){
+                            startActivity(new Intent(PassengerModeActivity.this,DriverRegistrationActivity.class));
+                        } else if (status.equals("Pending")) {
+                            Toast.makeText(PassengerModeActivity.this, "Your Registration is not verified Please wait few hours...", LENGTH_SHORT).show();
+                        }else if(status.equals("Verified")){
+                            FirebaseDatabase.getInstance().getReference("users").child("drivers").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (!snapshot.hasChild(user.getUid())){
+                                        HashMap<String,Object> map = new HashMap<>();
+                                        map.put("Name",user.getDisplayName());
+                                        map.put("Email",user.getEmail());
+                                        map.put("uid",user.getUid());
+                                        map.put("existing_rides","free");
+                                        FirebaseDatabase.getInstance().getReference("users").child("drivers").child(user.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isComplete()){
+                                                    Toast.makeText(PassengerModeActivity.this, "Added to Database", LENGTH_SHORT).show();
+                                                }else {
+                                                    Toast.makeText(PassengerModeActivity.this, task.getException().getMessage(), LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            startActivity(new Intent(PassengerModeActivity.this,HomeActivity.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+        View header=nv.getHeaderView(0);
+        TextView name=header.findViewById(R.id.name);
+        TextView phone=header.findViewById(R.id.phone);
+        name.setText(user.getDisplayName());
+        String numdata=user.getPhoneNumber().toString();
+        numdata=numdata.substring(0,4)+" "+numdata.substring(4);
+        phone.setText(numdata);
 //        fl= findViewById(R.id.framelayout);
         tb = findViewById(R.id.toolbar);
         tb.setTitle("Passengers Mode");
@@ -82,6 +141,7 @@ public class PassengerModeActivity extends AppCompatActivity implements OnMapRea
         mapFragment.getMapAsync(this);
 
         checkLocationPermission();
+
 
         createride.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,7 +298,7 @@ public class PassengerModeActivity extends AppCompatActivity implements OnMapRea
                 return false;
             }
         });
-        gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        gMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 //        gMap.animateCamera(CameraUpdateFactory.zoomBy(14));
 
 

@@ -57,7 +57,7 @@ public class FullScreenDialog extends DialogFragment {
     private  FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
     private FirebaseAuth auth=FirebaseAuth.getInstance();
     private FirebaseUser user=auth.getCurrentUser();
-
+    private FrameLayout frame;
     static FullScreenDialog newInstance(){
         return new FullScreenDialog();
     }
@@ -76,6 +76,7 @@ public class FullScreenDialog extends DialogFragment {
         adapter=new ArrayAdapter<String>(getContext(),R.layout.dropdown_list,items);
         MaterialButton dialog_cancel=myview.findViewById(R.id.dialog_cancel);
         MaterialButton createRide=myview.findViewById(R.id.createRide);
+        frame=myview.findViewById(R.id.frame);
         dialog_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,6 +200,32 @@ public class FullScreenDialog extends DialogFragment {
     }
 
     private void createWeeklyRide() {
+        startDate=frame.findViewById(R.id.startdate);
+        endDate=frame.findViewById(R.id.enddate);
+        time=frame.findViewById(R.id.time);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("current_location", current_location.getText().toString().trim());
+        map.put("final_destination", final_destination.getText().toString().trim());
+        map.put("startdate",startDate.getText().toString().trim());
+        map.put("enddate",endDate.getText().toString().trim());
+        map.put("time",time.getText().toString().trim());
+        map.put("driver_id", user.getUid());
+        map.put("ride_status", "Incomplete");
+
+        firebaseDatabase.getReference("driverRides").child("Realtime").child(
+                current_location.getText().toString().trim() +"-to-"+final_destination.getText().toString().trim()
+        ).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isComplete()){
+                    Intent i= new Intent(getActivity(), PassengersListviewActivity.class);
+                    i.putExtra("key",current_location.getText().toString().trim() +"-to-"+final_destination.getText().toString().trim());
+                    startActivity(i);
+                }else {
+                    Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 

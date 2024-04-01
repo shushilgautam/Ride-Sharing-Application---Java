@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.PassengerWaitingActivity">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        style="@style/Widget.Material3.Button.IconButton.Outlined"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:backgroundTint="@color/white"-->
+<!--        android:gravity="center"-->
+<!--        app:cornerRadius="10dp"-->
+<!--        app:icon="@drawable/back_two_arrows_svgrepo_com"-->
+<!--        app:iconSize="25dp"-->
+<!--        app:iconTint="@color/green_main"-->
+<!--        app:strokeWidth="0dp" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:elevation="200dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:id="@+id/name"
+            android:textSize="15dp"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="phonenumber"
+            android:id="@+id/phonenumber"
+            android:textSize="15dp"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="current_location"
+            android:id="@+id/current_location"
+            android:textSize="15dp"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="final_destination"
+            android:id="@+id/final_destination"
+            android:textSize="15dp"
+            android:padding="5dp"/>
+    </LinearLayout>
+</RelativeLayout>

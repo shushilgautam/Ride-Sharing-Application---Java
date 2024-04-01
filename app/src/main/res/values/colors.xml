@@ -29,6 +29,7 @@
     <color name="primaryTextColor">@color/white</color>
     <color name="secondaryTextColor">#000000</color>
     <color name="green_button">#039487</color>
+    <color name="grey">#eeeeee</color>
 
 
 </resources>

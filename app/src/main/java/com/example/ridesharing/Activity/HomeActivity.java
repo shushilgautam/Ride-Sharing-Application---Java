@@ -23,9 +23,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ridesharing.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -54,28 +58,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback {
-    FrameLayout fl;
-    FragmentTransaction ft;
+
     DrawerLayout dl;
     NavigationView nv;
     ActionBarDrawerToggle adt;
     MaterialToolbar tb;
     private GoogleMap gMap;
     MaterialButton createride;
-    String[] items = {"Today", "Weekly", "Custom"};
-    AutoCompleteTextView dropdown_menu;
-    ArrayAdapter<String> adapter;
     int Location_Request_Code = 100;
     LocationRequest locationRequest;
-    FusedLocationProviderClient fusedLocationProviderClient;
+    FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        MaterialButton modechanger=findViewById(R.id.modechangerbutton);
         dl = findViewById(R.id.drawerlayout);
         nv = findViewById(R.id.navigation);
-//        fl= findViewById(R.id.framelayout);
+        View header=nv.getHeaderView(0);
+        TextView name=header.findViewById(R.id.name);
+        TextView phone=header.findViewById(R.id.phone);
+        name.setText(user.getDisplayName());
+        String numdata=user.getPhoneNumber().toString();
+        numdata=numdata.substring(0,4)+" "+numdata.substring(4);
+        phone.setText(numdata);
         tb = findViewById(R.id.toolbar);
         createride = findViewById(R.id.loadEventMenu);
         tb = findViewById(R.id.toolbar);
@@ -84,51 +92,15 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         checkLocationPermission();
-
+        modechanger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this,PassengerModeActivity.class));
+            }
+        });
         createride.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                final Dialog dialog=new Dialog(HomeActivity.this);
-//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                dialog.setContentView(R.layout.uppersheet_menu_layout);
-//                dropdown_menu=dialog.findViewById(R.id.dropdown_menu);
-//                adapter=new ArrayAdapter<String>(HomeActivity.this,R.layout.dropdown_list,items);
-//                dropdown_menu.setAdapter(adapter);
-//                FragmentManager fm=getSupportFragmentManager();
-//                FragmentTransaction ft= fm.beginTransaction();
-//                ft.add(R.id.frame, new WeaklySubscriptionFragment());
-//                ft.commit();
-//                dropdown_menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        if (items[position].equals("Today")) {
-////                    do nothing
-//                            FragmentManager fm=getSupportFragmentManager();
-//                            FragmentTransaction ft= fm.beginTransaction();
-//                            ft.replace(R.id.frame, new TodaySubscriptionFragment());
-//                            ft.commit();
-//                        } else if (items[position].equals("Weekly")) {
-//                            FragmentManager fm=getSupportFragmentManager();
-//                            FragmentTransaction ft= fm.beginTransaction();
-//                            ft.replace(R.id.frame, new WeaklySubscriptionFragment());
-//                            ft.commit();
-//                        } else if (items[position].equals("Custom")) {
-//                            FragmentManager fm=getSupportFragmentManager();
-//                            FragmentTransaction ft= fm.beginTransaction();
-//                            ft.replace(R.id.frame, new CustomSubscriptionFragment());
-//                            ft.commit();
-//                        }else{
-//                            Toast.makeText(HomeActivity.this, "error", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.getWindow().getAttributes().windowAnimations=R.style.DialogAnimation;
-//                dialog.getWindow().setGravity(Gravity.TOP);
-//                dialog.show();
-
-
                 DialogFragment dialogFragment = FullScreenDialog.newInstance();
                 dialogFragment.show(getSupportFragmentManager(), "tag");
 
@@ -170,10 +142,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     //                  getSupportActionBar().setTitle("Features Products");
                 }
                 if (id == R.id.menu_logout) {
-//                    ft=getSupportFragmentManager().beginTransaction();
-//                    ft.replace(R.id.framelayout,new LogoutFragment());
-//                    ft.commit();
-                    //                   getSupportActionBar().setTitle("Contact US");
+                     GoogleSignInOptions gso = new GoogleSignInOptions.
+                            Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                            build();
+                    GoogleSignInClient googleSignInClient= GoogleSignIn.getClient(HomeActivity.this,gso);
+                    if(googleSignInClient!=null) {
+                        googleSignInClient.signOut();
+                    }
+                    FirebaseAuth.getInstance().signOut();
+
+                    startActivity(new Intent(HomeActivity.this,LoginActivity.class));
                 }
                 if (id == R.id.menu_home) {
 //                    ft=getSupportFragmentManager().beginTransaction();
@@ -280,7 +258,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return false;
             }
         });
-        gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        gMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 //        gMap.animateCamera(CameraUpdateFactory.zoomBy(14));
 
 
@@ -303,11 +281,14 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String existing_value;
+                String existing_value = null;
                 Log.d("Snapshot",snapshot.toString());
-                existing_value=snapshot.getValue().toString();
-                Log.d( "onDataChange: ",existing_value);
-                notengaged(existing_value);
+                if(snapshot.exists()){
+                    existing_value=snapshot.getValue().toString();
+                    Log.d( "onDataChange: ",existing_value);
+                    notengaged(existing_value);
+                }
+
             }
 
             @Override

@@ -71,7 +71,25 @@
         app:headerLayout="@layout/header"
         android:id="@+id/navigation"
         app:menu="@menu/navmenu"
-        />
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Passenger Mode"
+                android:backgroundTint="@color/green_main"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                map:cornerRadius="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="10dp"
+                android:id="@+id/modechangerbutton"
+                />
+        </RelativeLayout>
+    </com.google.android.material.navigation.NavigationView>
 
 
     <!--        style="@style/Widget.Material3.NavigationView"-->

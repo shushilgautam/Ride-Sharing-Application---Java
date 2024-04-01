@@ -1,9 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.PassengerWaitingActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Material3.Button.IconButton.Outlined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/back_two_arrows_svgrepo_com"
+        app:iconSize="25dp"
+        app:iconTint="@color/green_main"
+        app:strokeWidth="0dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:elevation="200dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Searching For Rides..."
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:textAlignment="center"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:lottie_rawRes="@raw/searching_ripple"
+            app:lottie_autoPlay="true"
+            app:lottie_colorFilter="@color/green_main"
+            app:lottie_loop="true"/>
+    </LinearLayout>
+</RelativeLayout>

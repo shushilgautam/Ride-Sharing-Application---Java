@@ -52,7 +52,6 @@ public class HistoryFragment extends Fragment {
                 }
                 Collections.reverse(data);
                 listView.setAdapter(new CustomClassForHistory(getActivity(), data));
-
             }
 
             @Override

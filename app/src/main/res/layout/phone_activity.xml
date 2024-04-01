@@ -2,17 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="#61B7DA"
+    android:paddingTop="50dp"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:background="@drawable/cardview"
+        android:layout_margin="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:orientation="vertical">
         <ImageView
             android:id="@+id/img_otp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/otp" />
         <TextView
             android:layout_width="wrap_content"
@@ -36,9 +43,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="25dp"
+
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="25dp"
+
             android:backgroundTint="#979797"
             android:hint="Phone Number"
             app:boxStrokeColor="@color/black"
@@ -59,7 +66,8 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/sendotp"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="10dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/green"

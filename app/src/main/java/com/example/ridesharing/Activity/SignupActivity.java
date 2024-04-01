@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -29,7 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
-    Button signup;
+    MaterialButton signup,intentlogin;
     TextInputEditText signupfullname,signupemail,signupnumber,password,signupconfirmpassword;
 
     @Override
@@ -40,11 +42,16 @@ public class SignupActivity extends AppCompatActivity {
         signup=findViewById(R.id.btnsignup);
         signupfullname=findViewById(R.id.fullname);
         signupemail=findViewById(R.id.email);
-        signupnumber=findViewById(R.id.phonenumber);
         password=findViewById(R.id.password);
+        intentlogin=findViewById(R.id.intentLogin);
         signupconfirmpassword=findViewById(R.id.conpassword);
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-
+        intentlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignupActivity.this,LoginActivity.class));
+            }
+        });
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,19 +65,32 @@ public class SignupActivity extends AppCompatActivity {
                             FirebaseUser user=authResult.getUser();
                             user.updateProfile(request);
                             sendEmailVerification(user);
-                            Toast.makeText(SignupActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
-                            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users/normal");
-                            DatabaseReference userRef = usersRef.child(user.getUid());
+                            firebaseAuth.signInWithEmailAndPassword(signupemail.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isComplete()){
+                                        Intent i = new Intent(SignupActivity.this, PhoneActivity.class);
+                                        startActivity(i);
+                                    }else {
+                                        Toast.makeText(SignupActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+//                            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users/normal");
+//                            DatabaseReference userRef = usersRef.child(user.getUid());
+//
+//                            userRef.child("userId").setValue(user.getUid());
+//                            userRef.child("fullname").setValue(signupfullname.getText().toString());
+//                            userRef.child("email").setValue(signupemail.getText().toString());
+//                            userRef.child("number").setValue(signupnumber.getText().toString());
+//                            userRef.child("password").setValue(password.getText().toString());
 
-                            userRef.child("userId").setValue(user.getUid());
-                            userRef.child("fullname").setValue(signupfullname.getText().toString());
-                            userRef.child("email").setValue(signupemail.getText().toString());
-                            userRef.child("number").setValue(signupnumber.getText().toString());
-                            userRef.child("password").setValue(password.getText().toString());
+//                            SharedPreferences sharedPreferences = getSharedPreferences("MySharedEmailPref", MODE_PRIVATE);
+//                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+//                            myEdit.putString("email",signupemail.getText().toString().trim());
+//                            myEdit.putString("password",password.getText().toString().trim());
+//                            myEdit.apply();
 
-                            Intent i = new Intent(SignupActivity.this, LoginActivity.class);
-
-                            startActivity(i);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -88,9 +108,9 @@ public class SignupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(SignupActivity.this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
-
-                            Intent i = new Intent(SignupActivity.this, LoginActivity.class);
-                            startActivity(i);
+//
+//                            Intent i = new Intent(SignupActivity.this, LoginActivity.class);
+//                            startActivity(i);
                         } else {
                             Toast.makeText(SignupActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
                         }
@@ -101,13 +121,11 @@ public class SignupActivity extends AppCompatActivity {
             private boolean validateInputs() {
                 TextInputLayout tilFullname = findViewById(R.id.tilFullname);
                 TextInputLayout tilEmail = findViewById(R.id.tilemail);
-                TextInputLayout tilPhoneNumber = findViewById(R.id.tilnumber);
                 TextInputLayout tilPassword = findViewById(R.id.tilpassword);
                 TextInputLayout tilConfirmPassword = findViewById(R.id.tilconpassword);
 
                 String username = signupfullname.getText().toString();
                 String email = signupemail.getText().toString();
-                String number = signupnumber.getText().toString();
                 String userpassword = password.getText().toString();
                 String confirmpassword = signupconfirmpassword.getText().toString();
 
@@ -133,15 +151,6 @@ public class SignupActivity extends AppCompatActivity {
                     tilEmail.setError(null);
                 }
 
-                if (number.isEmpty()) {
-                    tilPhoneNumber.setError("Phone number is required");
-                    isValid = false;
-                } else if (!isValidPhoneNumber(number)) {
-                    tilPhoneNumber.setError("Invalid phone number");
-                    isValid = false;
-                } else {
-                    tilPhoneNumber.setError(null);
-                }
 
                 if (userpassword.isEmpty()) {
                     tilPassword.setError("Password is required");

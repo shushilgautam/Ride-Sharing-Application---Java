@@ -199,6 +199,7 @@ public class FullScreenDialog2 extends DialogFragment {
         map.put("final_destination", finaldestiantion);
         map.put("passenger_uid",user.getUid());
         map.put("fullname",user.getDisplayName());
+        map.put("status","Pending");
         firebaseDatabase.getReference("driverRides").child("Realtime").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -207,14 +208,18 @@ public class FullScreenDialog2 extends DialogFragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isComplete()){
-                                new MaterialAlertDialogBuilder(getActivity()).setTitle("Request Has been Submitted ")
-                                        .setMessage("Please wait while the driver accept the offer.It can take a few minutes.")
-                                        .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.cancel();
-                                            }
-                                        }).show();
+//                                new MaterialAlertDialogBuilder(getActivity()).setTitle("Request Has been Submitted ")
+//                                        .setMessage("Please wait while the driver accept the offer.It can take a few minutes.")
+//                                        .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                dialog.cancel();
+//                                            }
+//                                        }).show();
+                                Intent i =new Intent(getActivity(),PassengerWaitingActivity.class);
+                                i.putExtra("key",Ride_Key);
+                                getActivity().startActivity(i);
+
                             }else{
                                 Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }

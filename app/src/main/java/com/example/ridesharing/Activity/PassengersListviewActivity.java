@@ -43,7 +43,8 @@ public class PassengersListviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-         sharedPreferences= PreferenceManager
+
+        sharedPreferences= PreferenceManager
                 .getDefaultSharedPreferences(this);
         setContentView(R.layout.activity_listview);
         listView=findViewById(R.id.listview);

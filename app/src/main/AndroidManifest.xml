@@ -18,6 +18,13 @@
         android:theme="@style/Theme.RideSharing"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ForgotPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.RideSharing" />
+        <activity
+            android:name=".OngoingRideActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.PassengerWaitingActivity"
             android:exported="false" />
         <activity
@@ -61,31 +68,31 @@
             android:exported="true" />
         <activity
             android:name=".Activity.OTPActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.DriverRegistrationActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.DriverLiscenseActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.VehicleInfoActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.IdConfirmation"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.BrandTraspotActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.NumberplateActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.VehiclePhotoActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.BillBookActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
