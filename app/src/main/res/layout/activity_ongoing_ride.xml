@@ -36,13 +36,25 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:elevation="200dp"
+        android:padding="15dp"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Passenger Details"
+            android:textStyle="bold"
+            android:textColor="@color/green_main"
+            android:textAlignment="center"
+            android:id="@+id/flag"
+            android:textSize="20dp"
+            android:padding="5dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name"
             android:id="@+id/name"
             android:textSize="15dp"
+
             android:padding="5dp"/>
         <TextView
             android:layout_width="match_parent"
@@ -65,5 +77,26 @@
             android:id="@+id/final_destination"
             android:textSize="15dp"
             android:padding="5dp"/>
+        <com.google.android.material.button.MaterialButton
+            style="@style/ThemeOverlay.Material3.Button.TextButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="End Ride"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            app:icon="@drawable/task_done"
+            app:iconSize="28dp"
+            app:cornerRadius="10dp"
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            app:iconTint="@color/black"
+            android:textSize="18dp"
+            android:backgroundTint="@color/green_main"
+            android:id="@+id/endRide"
+            />
     </LinearLayout>
+
 </RelativeLayout>

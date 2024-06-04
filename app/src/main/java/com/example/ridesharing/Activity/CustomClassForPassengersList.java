@@ -1,6 +1,8 @@
 package com.example.ridesharing.Activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +72,7 @@ public class CustomClassForPassengersList extends BaseAdapter {
                 addToFinalPassengersList(fullname.getText().toString().trim(),from_loacation.getText().toString().trim(),to_location.getText().toString().trim(),passengeruid);
             }
         });
+//        decline button logic
         return myview;
     }
 
@@ -76,12 +82,15 @@ public class CustomClassForPassengersList extends BaseAdapter {
         map.put("from_location",from_location);
         map.put("to_location",to_location);
         map.put("uid",passenger_uid);
-        firebaseDatabase.getReference("driverRides").child("Realtime").child(rideTableName).child("Final_passengers_list").child(passenger_uid).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        firebaseDatabase.getReference("driverRides").child("Realtime").child(rideTableName).child("finalpassengerlist").child(passenger_uid).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
+                    firebaseDatabase.getReference("driverRides").child("Realtime").child(rideTableName).child("passengers_list")
+                            .child(passenger_uid).child("status").setValue("Confirmed");
                     Toast.makeText(c, "Ride Confirmed Intent to next activity", Toast.LENGTH_SHORT).show();
-//                    intent to new activity that shows map and driver details;
+//                    Intent i=new Intent(c, OngoingRideActivity.class);
+//                    c.startActivity(i);
                 }else{
                     Toast.makeText(c, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }

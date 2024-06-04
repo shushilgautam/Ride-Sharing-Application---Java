@@ -1,13 +1,14 @@
 package com.example.ridesharing.Activity;
 
 public class DataModelForPassengers {
-    private String fullname, current_location, final_destination, passenger_uid;
+    private String fullname, current_location, final_destination, passenger_uid,status;
 
-    public DataModelForPassengers(String fullname, String from, String to, String uid) {
+    public DataModelForPassengers(String fullname, String current_location, String final_destination, String passenger_uid, String status) {
         this.fullname = fullname;
-        this.current_location = from;
-        this.final_destination = to;
-        this.passenger_uid = uid;
+        this.current_location = current_location;
+        this.final_destination = final_destination;
+        this.passenger_uid = passenger_uid;
+        this.status = status;
     }
 
     public String getFullname() {
@@ -40,6 +41,14 @@ public class DataModelForPassengers {
 
     public void setPassenger_uid(String passenger_uid) {
         this.passenger_uid = passenger_uid;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public  DataModelForPassengers(){}

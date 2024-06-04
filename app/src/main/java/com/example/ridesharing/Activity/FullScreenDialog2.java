@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -204,18 +205,13 @@ public class FullScreenDialog2 extends DialogFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild(Ride_Key)){
+                    Log.d("Rohan","To passenger waiting activity");
                     firebaseDatabase.getReference("driverRides").child("Realtime").child(Ride_Key).child("passengers_list").child(user.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isComplete()){
-//                                new MaterialAlertDialogBuilder(getActivity()).setTitle("Request Has been Submitted ")
-//                                        .setMessage("Please wait while the driver accept the offer.It can take a few minutes.")
-//                                        .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int which) {
-//                                                dialog.cancel();
-//                                            }
-//                                        }).show();
+
+                                Log.d("Rohan","To passenger waiting activity");
                                 Intent i =new Intent(getActivity(),PassengerWaitingActivity.class);
                                 i.putExtra("key",Ride_Key);
                                 getActivity().startActivity(i);

@@ -22,7 +22,7 @@
             android:exported="false"
             android:theme="@style/Theme.RideSharing" />
         <activity
-            android:name=".OngoingRideActivity"
+            android:name=".Activity.OngoingRideActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.PassengerWaitingActivity"

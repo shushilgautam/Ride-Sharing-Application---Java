@@ -39,13 +39,16 @@ public class PassengersListviewActivity extends AppCompatActivity {
     ArrayList<DataModelForPassengers> data=new ArrayList<DataModelForPassengers>();
     SharedPreferences sharedPreferences;
     String rideTableName;
+    private ValueEventListener listener;
+    Boolean flag=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        sharedPreferences= PreferenceManager
-                .getDefaultSharedPreferences(this);
+//        sharedPreferences= PreferenceManager
+//                .getDefaultSharedPreferences(this);
+        sharedPreferences=getSharedPreferences("Ride_Details",MODE_PRIVATE);
         setContentView(R.layout.activity_listview);
         listView=findViewById(R.id.listview);
         toolbar=findViewById(R.id.topAppBar);
@@ -82,7 +85,7 @@ public class PassengersListviewActivity extends AppCompatActivity {
         rideTableName=sharedPreferences.getString("ride_name","");
         Log.d( "ridetablename: ",rideTableName);
 
-        firebaseDatabase.getReference("driverRides").child("Realtime").child(rideTableName).child("passengers_list").addValueEventListener(new ValueEventListener() {
+        firebaseDatabase.getReference("driverRides").child("Realtime").child(rideTableName).child("passengers_list").addValueEventListener(listener= new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -92,25 +95,32 @@ public class PassengersListviewActivity extends AppCompatActivity {
                     data.add(value);
                 }
                 Log.d("Passenger list data",data.toString());
-                listView.setAdapter(new CustomClassForPassengersList(PassengersListviewActivity.this, data,rideTableName));
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                flag=false;
                 Toast.makeText(PassengersListviewActivity.this, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
         });
+        if (flag){
+            listView.setAdapter(new CustomClassForPassengersList(PassengersListviewActivity.this, data,rideTableName));
+        }
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+        // Detach the listener to avoid memory leaks and repetitions
+        if (listener != null) {
+            firebaseDatabase.getReference().removeEventListener(listener);
+        }
+    }
     @Override
     public void onBackPressed(){
 //        super.onBackPressed();
 
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-    }
 }
