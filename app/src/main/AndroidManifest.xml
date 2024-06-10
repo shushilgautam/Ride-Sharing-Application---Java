@@ -43,7 +43,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCgj5XMGiat0K3Y-M4cCrkuQPcLpyYWuJQ" />
+            android:value="" />
 
         <activity
             android:name=".Activity.PassengersListviewActivity"
